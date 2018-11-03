@@ -1,0 +1,9 @@
+{
+  "name": "react-system",
+  "version": "0.0.0",
+  "description": "Flex box system for react based on emotion",
+  "main": "dist/index.cjs.js",
+  "repository": "https://github.com/TrySound/react-system",
+  "author": "Bogdan Chadkin <trysound@yandex.ru>",
+  "license": "MIT"
+}
