@@ -110,6 +110,7 @@ The Flex and Box components use a mobile-first responsive approach, where any va
 - mx, my, px, py are replaced with mh, mv, ph, pv which are shorthand for horizontal and vertical directions (see https://github.com/rebassjs/rebass/issues/509)
 - emotion only support; by not using react-emotion this project works well in concurrent mode
 - wrong numeric paddings, margins, width and height are clamped to their possible values
+- this project uses internal context reader to eliminate nested elements in `Flex` and `Box` components
 
 ## License
 
