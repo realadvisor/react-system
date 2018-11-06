@@ -1,4 +1,7 @@
-# react-system
+# react-system [![Travis Build Status][travis-img]][travis]
+
+[travis-img]: https://travis-ci.org/TrySound/react-system.svg
+[travis]: https://travis-ci.org/TrySound/react-system
 
 Flex box system for react based on emotion
 
