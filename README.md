@@ -55,15 +55,15 @@ Margin and padding props follow a shorthand syntax for specifying direction.
 - mr - margin-right
 - mb - margin-bottom
 - ml - margin-left
-- mx - margin-left and margin-right
-- my - margin-top and margin-bottom
+- mh - margin-left and margin-right
+- mv - margin-top and margin-bottom
 - p - padding
 - pt - padding-top
 - pr - padding-right
 - pb - padding-bottom
 - pl - padding-left
-- px - padding-left and padding-right
-- py - padding-top and padding-bottom
+- ph - padding-left and padding-right
+- pv - padding-top and padding-bottom
 
 #### Flex items props
 
