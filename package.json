@@ -9,7 +9,7 @@
     "src"
   ],
   "scripts": {
-    "types": "echo \"// @flow\n\nexport * from '../src';\" > dist/index.cjs.flow",
+    "types": "echo \"// @flow\n\nexport * from '../src';\" > dist/index.cjs.js.flow",
     "build": "rm -rf dist && rollup -c && yarn types",
     "test": "jest && yarn flow check",
     "prepublish": "yarn build"
