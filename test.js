@@ -516,3 +516,39 @@ test("support server-side rendering", () => {
     `"<style data-emotion-css=\\"15o30dr 3c42lj\\">.css-15o30dr{box-sizing:border-box;min-width:0;min-height:0;}.css-3c42lj{padding-top:8px;padding-right:8px;padding-bottom:8px;padding-left:8px;}</style><div class=\\"css-15o30dr css-3c42lj\\" data-reactroot=\\"\\">Box</div><style data-emotion-css=\\"xc9yl4\\">.css-xc9yl4{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;box-sizing:border-box;min-width:0;min-height:0;}</style><div class=\\"css-xc9yl4 css-3c42lj\\" data-reactroot=\\"\\">Flex</div>"`
   );
 });
+
+test("concat className with prop", () => {
+  expect(
+    TestRenderer.create(
+      <div>
+        <Box className="custom-class-box" />
+        <Flex className="custom-class-flex" />
+      </div>
+    ).toJSON()
+  ).toMatchInlineSnapshot(`
+.emotion-0 {
+  box-sizing: border-box;
+  min-width: 0;
+  min-height: 0;
+}
+
+.emotion-2 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  box-sizing: border-box;
+  min-width: 0;
+  min-height: 0;
+}
+
+<div>
+  <div
+    className="emotion-0 emotion-1 custom-class-box"
+  />
+  <div
+    className="emotion-2 emotion-1 custom-class-flex"
+  />
+</div>
+`);
+});

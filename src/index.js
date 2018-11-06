@@ -13,6 +13,7 @@ type StringProp = string | $ReadOnlyArray<string>;
 
 type BoxProps = {
   is?: string,
+  className?: string,
   css?: { [string]: mixed },
   children?: React.Node,
 
@@ -215,6 +216,7 @@ const getStylePropName = style => style.prop;
 
 export const Box = ({
   is = "div",
+  className = "",
   css: cssProp,
   children,
   ...props
@@ -227,12 +229,13 @@ export const Box = ({
   });
   const styles = [...sizeStyles, ...spaceStyles, ...flexItemStyles];
   const generated = compileStyles(props, context, styles);
+  const generatedClassName = css(cssProp, generated);
   const rest = omit(props, styles.map(getStylePropName));
 
   return React.createElement(
     is,
     {
-      className: `${initialStyle} ${css(cssProp, generated)}`,
+      className: `${initialStyle} ${generatedClassName} ${className}`.trim(),
       ...rest
     },
     children == null ? null : children
@@ -241,6 +244,7 @@ export const Box = ({
 
 export const Flex = ({
   is = "div",
+  className = "",
   css: cssProp,
   children,
   ...props
@@ -259,12 +263,13 @@ export const Flex = ({
     ...flexBoxStyles
   ];
   const generated = compileStyles(props, context, styles);
+  const generatedClassName = css(cssProp, generated);
   const rest = omit(props, styles.map(getStylePropName));
 
   return React.createElement(
     is,
     {
-      className: `${initialStyle} ${css(cssProp, generated)}`,
+      className: `${initialStyle} ${generatedClassName} ${className}`.trim(),
       ...rest
     },
     children == null ? null : children
