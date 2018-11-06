@@ -6,7 +6,8 @@
   "module": "dist/index.esm.js",
   "scripts": {
     "build": "rm -rf dist && rollup -c",
-    "test": "jest && yarn flow check"
+    "test": "jest && yarn flow check",
+    "prepublish": "yarn build"
   },
   "jest": {
     "snapshotSerializers": [
