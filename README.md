@@ -102,6 +102,15 @@ The default scale is `[ 0, 4, 8, 16, 32, 64, 128, 256 ]`.
 
 The Flex and Box components use a mobile-first responsive approach, where any value set works from that breakpoint and wider. Breakpoints are hard-coded to the following min-widths: `[768, 1280, 1920]`.
 
+## What is the different from grid-styled or @rebass/grid
+
+- react-system has less dependencies and esm support which leads to smaller bundle size
+- in this project `min-width: 0` and `min-height: 0` are added out of the box to fix flexbox issues
+- bg, color and fontSize are missing in this project; css={{}} should be used instead
+- mx, my, px, py are replaced with mh, mv, ph, pv which are shorthand for horizontal and vertical directions (see https://github.com/rebassjs/rebass/issues/509)
+- emotion only support; by not using react-emotion this project works well in concurrent mode
+- wrong numeric paddings, margins, width and height are clamped to their possible values
+
 ## License
 
 MIT &copy; [Bogdan Chadkin](mailto:trysound@yandex.ru)
