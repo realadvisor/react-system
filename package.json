@@ -4,6 +4,9 @@
   "description": "Flex box system for react based on emotion",
   "main": "dist/index.cjs.js",
   "module": "dist/index.esm.js",
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "build": "rm -rf dist && rollup -c",
     "test": "jest && yarn flow check",
