@@ -42,6 +42,9 @@
     "rollup-plugin-babel": "^4.0.3",
     "rollup-plugin-size-snapshot": "^0.7.0"
   },
+  "peerDependencies": {
+    "react": "^16.6.0"
+  },
   "dependencies": {
     "@babel/runtime": "^7.1.2",
     "emotion": "^9.2.12"
