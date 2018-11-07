@@ -29,7 +29,9 @@ type BoxProps = {
   pl?: NumericProp,
   m?: NumericProp,
   mh?: NumericProp,
+  mx?: NumericProp,
   mv?: NumericProp,
+  my?: NumericProp,
   mt?: NumericProp,
   mr?: NumericProp,
   mb?: NumericProp,
@@ -162,8 +164,12 @@ const spaceStyles: $ReadOnlyArray<Descriptor> = [
 
   { prop: "ph", cssProp: "paddingLeft", transform: getSpace },
   { prop: "ph", cssProp: "paddingRight", transform: getSpace },
+  { prop: "px", cssProp: "paddingLeft", transform: getSpace },
+  { prop: "px", cssProp: "paddingRight", transform: getSpace },
   { prop: "pv", cssProp: "paddingTop", transform: getSpace },
   { prop: "pv", cssProp: "paddingBottom", transform: getSpace },
+  { prop: "py", cssProp: "paddingTop", transform: getSpace },
+  { prop: "py", cssProp: "paddingBottom", transform: getSpace },
 
   { prop: "pt", cssProp: "paddingTop", transform: getSpace },
   { prop: "pr", cssProp: "paddingRight", transform: getSpace },
@@ -177,8 +183,12 @@ const spaceStyles: $ReadOnlyArray<Descriptor> = [
 
   { prop: "mh", cssProp: "marginLeft", transform: getSpace },
   { prop: "mh", cssProp: "marginRight", transform: getSpace },
+  { prop: "mx", cssProp: "marginLeft", transform: getSpace },
+  { prop: "mx", cssProp: "marginRight", transform: getSpace },
   { prop: "mv", cssProp: "marginTop", transform: getSpace },
   { prop: "mv", cssProp: "marginBottom", transform: getSpace },
+  { prop: "my", cssProp: "marginTop", transform: getSpace },
+  { prop: "my", cssProp: "marginBottom", transform: getSpace },
 
   { prop: "mt", cssProp: "marginTop", transform: getSpace },
   { prop: "mr", cssProp: "marginRight", transform: getSpace },

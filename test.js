@@ -131,6 +131,30 @@ test("support paddings and margins", () => {
 />
 `);
 
+  expect(TestRenderer.create(<Box px="1" py="2" mx="3" my="4" />))
+    .toMatchInlineSnapshot(`
+.emotion-0 {
+  box-sizing: border-box;
+  min-width: 0;
+  min-height: 0;
+}
+
+.emotion-1 {
+  padding-left: 1px;
+  padding-right: 1px;
+  padding-top: 2px;
+  padding-bottom: 2px;
+  margin-left: 3px;
+  margin-right: 3px;
+  margin-top: 4px;
+  margin-bottom: 4px;
+}
+
+<div
+  className="emotion-0 emotion-1"
+/>
+`);
+
   expect(
     TestRenderer.create(
       <Box pt="1" pr="2" pb="3" pl="4" mt="5" mr="6" mb="7" ml="8" />
