@@ -112,6 +112,25 @@ The Flex and Box components use a mobile-first responsive approach, where any va
 - wrong numeric paddings, margins, width and height are clamped to their possible values
 - this project uses internal context reader to eliminate nested elements in `Flex` and `Box` components
 
+### media(styles)
+
+An utility function which allows to write responsive styles similar to Flex/Box props.
+
+*Note: `media()` can be called only inside of component render.*
+
+```js
+const Component = () => {
+  return (
+    <Box css={media({ background: ['#000', '#fff'] })}>
+      <div className={css(media({ color: ['#fff', '#000'] }))}>
+        Content
+      </div>
+    </Box>
+  )
+}
+
+```
+
 ## License
 
 MIT &copy; [Bogdan Chadkin](mailto:trysound@yandex.ru)
