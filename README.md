@@ -102,6 +102,22 @@ The default scale is `[ 0, 4, 8, 16, 32, 64, 128, 256 ]`.
 
 The Flex and Box components use a mobile-first responsive approach, where any value set works from that breakpoint and wider. Breakpoints are hard-coded to the following min-widths: `[768, 1280, 1920]`.
 
+### media(styles)
+
+An utility function which allows to write responsive styles similar to Flex/Box props.
+
+_Note: `media()` can be called only inside of component render._
+
+```js
+const Component = () => {
+  return (
+    <Box css={media({ background: ["#000", "#fff"] })}>
+      <div className={css(media({ color: ["#fff", "#000"] }))}>Content</div>
+    </Box>
+  );
+};
+```
+
 ## What is the different from grid-styled or @rebass/grid
 
 - react-system has less dependencies and esm support which leads to smaller bundle size
@@ -111,25 +127,6 @@ The Flex and Box components use a mobile-first responsive approach, where any va
 - emotion only support; by not using react-emotion this project works well in concurrent mode
 - wrong numeric paddings, margins, width and height are clamped to their possible values
 - this project uses internal context reader to eliminate nested elements in `Flex` and `Box` components
-
-### media(styles)
-
-An utility function which allows to write responsive styles similar to Flex/Box props.
-
-*Note: `media()` can be called only inside of component render.*
-
-```js
-const Component = () => {
-  return (
-    <Box css={media({ background: ['#000', '#fff'] })}>
-      <div className={css(media({ color: ['#fff', '#000'] }))}>
-        Content
-      </div>
-    </Box>
-  )
-}
-
-```
 
 ## License
 
