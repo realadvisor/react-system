@@ -17,15 +17,12 @@ test("support width and height", () => {
   box-sizing: border-box;
   min-width: 0;
   min-height: 0;
-}
-
-.emotion-1 {
   width: 100px;
   height: 10em;
 }
 
 <div
-  className="emotion-0 emotion-1"
+  className="emotion-0"
 />
 `);
 });
@@ -37,15 +34,12 @@ test("support numbers in width and height", () => {
   box-sizing: border-box;
   min-width: 0;
   min-height: 0;
-}
-
-.emotion-1 {
   width: 50%;
   height: 25%;
 }
 
 <div
-  className="emotion-0 emotion-1"
+  className="emotion-0"
 />
 `);
   expect(TestRenderer.create(<Box width={0} height={0} />).toJSON())
@@ -54,15 +48,12 @@ test("support numbers in width and height", () => {
   box-sizing: border-box;
   min-width: 0;
   min-height: 0;
-}
-
-.emotion-1 {
   width: 0;
   height: 0;
 }
 
 <div
-  className="emotion-0 emotion-1"
+  className="emotion-0"
 />
 `);
   expect(TestRenderer.create(<Box width={2} height={-1} />).toJSON())
@@ -71,15 +62,12 @@ test("support numbers in width and height", () => {
   box-sizing: border-box;
   min-width: 0;
   min-height: 0;
-}
-
-.emotion-1 {
   width: 100%;
   height: 0;
 }
 
 <div
-  className="emotion-0 emotion-1"
+  className="emotion-0"
 />
 `);
 });
@@ -90,9 +78,6 @@ test("support paddings and margins", () => {
   box-sizing: border-box;
   min-width: 0;
   min-height: 0;
-}
-
-.emotion-1 {
   padding-top: 1px;
   padding-right: 1px;
   padding-bottom: 1px;
@@ -104,7 +89,7 @@ test("support paddings and margins", () => {
 }
 
 <div
-  className="emotion-0 emotion-1"
+  className="emotion-0"
 />
 `);
 
@@ -114,9 +99,6 @@ test("support paddings and margins", () => {
   box-sizing: border-box;
   min-width: 0;
   min-height: 0;
-}
-
-.emotion-1 {
   padding-left: 1px;
   padding-right: 1px;
   padding-top: 2px;
@@ -128,7 +110,7 @@ test("support paddings and margins", () => {
 }
 
 <div
-  className="emotion-0 emotion-1"
+  className="emotion-0"
 />
 `);
 
@@ -138,9 +120,6 @@ test("support paddings and margins", () => {
   box-sizing: border-box;
   min-width: 0;
   min-height: 0;
-}
-
-.emotion-1 {
   padding-left: 1px;
   padding-right: 1px;
   padding-top: 2px;
@@ -152,7 +131,7 @@ test("support paddings and margins", () => {
 }
 
 <div
-  className="emotion-0 emotion-1"
+  className="emotion-0"
 />
 `);
 
@@ -165,9 +144,6 @@ test("support paddings and margins", () => {
   box-sizing: border-box;
   min-width: 0;
   min-height: 0;
-}
-
-.emotion-1 {
   padding-top: 1px;
   padding-right: 2px;
   padding-bottom: 3px;
@@ -179,7 +155,7 @@ test("support paddings and margins", () => {
 }
 
 <div
-  className="emotion-0 emotion-1"
+  className="emotion-0"
 />
 `);
 });
@@ -191,9 +167,6 @@ test("support scale in margins and paddings passed as numbers", () => {
   box-sizing: border-box;
   min-width: 0;
   min-height: 0;
-}
-
-.emotion-1 {
   padding-top: 4px;
   padding-right: 4px;
   padding-bottom: 4px;
@@ -205,7 +178,7 @@ test("support scale in margins and paddings passed as numbers", () => {
 }
 
 <div
-  className="emotion-0 emotion-1"
+  className="emotion-0"
 />
 `);
 
@@ -215,9 +188,6 @@ test("support scale in margins and paddings passed as numbers", () => {
   box-sizing: border-box;
   min-width: 0;
   min-height: 0;
-}
-
-.emotion-1 {
   padding-left: 4px;
   padding-right: 4px;
   padding-top: 8px;
@@ -229,7 +199,7 @@ test("support scale in margins and paddings passed as numbers", () => {
 }
 
 <div
-  className="emotion-0 emotion-1"
+  className="emotion-0"
 />
 `);
 
@@ -242,9 +212,6 @@ test("support scale in margins and paddings passed as numbers", () => {
   box-sizing: border-box;
   min-width: 0;
   min-height: 0;
-}
-
-.emotion-1 {
   padding-top: 4px;
   padding-right: 8px;
   padding-bottom: 16px;
@@ -256,7 +223,7 @@ test("support scale in margins and paddings passed as numbers", () => {
 }
 
 <div
-  className="emotion-0 emotion-1"
+  className="emotion-0"
 />
 `);
 
@@ -266,9 +233,6 @@ test("support scale in margins and paddings passed as numbers", () => {
   box-sizing: border-box;
   min-width: 0;
   min-height: 0;
-}
-
-.emotion-1 {
   padding-top: -256px;
   padding-right: -256px;
   padding-bottom: -256px;
@@ -280,7 +244,7 @@ test("support scale in margins and paddings passed as numbers", () => {
 }
 
 <div
-  className="emotion-0 emotion-1"
+  className="emotion-0"
 />
 `);
 });
@@ -295,34 +259,31 @@ test("support responsive values", () => {
   box-sizing: border-box;
   min-width: 0;
   min-height: 0;
-}
-
-.emotion-1 {
   width: 50%;
   height: 100%;
 }
 
 @media screen and (min-width:48em) {
-  .emotion-1 {
+  .emotion-0 {
     width: 100%;
     height: 50%;
   }
 }
 
 @media screen and (min-width:80em) {
-  .emotion-1 {
+  .emotion-0 {
     height: 25%;
   }
 }
 
 @media screen and (min-width:120em) {
-  .emotion-1 {
+  .emotion-0 {
     height: 12.5%;
   }
 }
 
 <div
-  className="emotion-0 emotion-1"
+  className="emotion-0"
 />
 `);
 });
@@ -337,32 +298,29 @@ test("skip responsive values over breakpoints count", () => {
   box-sizing: border-box;
   min-width: 0;
   min-height: 0;
-}
-
-.emotion-1 {
   width: 100%;
 }
 
 @media screen and (min-width:48em) {
-  .emotion-1 {
+  .emotion-0 {
     width: 50%;
   }
 }
 
 @media screen and (min-width:80em) {
-  .emotion-1 {
+  .emotion-0 {
     width: 25%;
   }
 }
 
 @media screen and (min-width:120em) {
-  .emotion-1 {
+  .emotion-0 {
     width: 12.5%;
   }
 }
 
 <div
-  className="emotion-0 emotion-1"
+  className="emotion-0"
 />
 `);
 });
@@ -377,9 +335,6 @@ test("support flex item properties", () => {
   box-sizing: border-box;
   min-width: 0;
   min-height: 0;
-}
-
-.emotion-1 {
   -webkit-flex: 1;
   -ms-flex: 1;
   flex: 1;
@@ -393,7 +348,7 @@ test("support flex item properties", () => {
 }
 
 <div
-  className="emotion-0 emotion-1"
+  className="emotion-0"
 />
 `);
 });
@@ -419,9 +374,6 @@ test("support flex box properties", () => {
   box-sizing: border-box;
   min-width: 0;
   min-height: 0;
-}
-
-.emotion-1 {
   -webkit-align-items: center;
   -webkit-box-align: center;
   -ms-flex-align: center;
@@ -443,7 +395,7 @@ test("support flex box properties", () => {
 }
 
 <div
-  className="emotion-0 emotion-1"
+  className="emotion-0"
 />
 `);
 });
@@ -463,7 +415,7 @@ test("pass is prop to render element other than div", () => {
   min-height: 0;
 }
 
-.emotion-2 {
+.emotion-1 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -475,10 +427,10 @@ test("pass is prop to render element other than div", () => {
 
 <div>
   <header
-    className="emotion-0 emotion-1"
+    className="emotion-0"
   />
   <section
-    className="emotion-2 emotion-1"
+    className="emotion-1"
   />
 </div>
 `);
@@ -493,12 +445,6 @@ test("css prop overrides defaults", () => {
       </div>
     ).toJSON()
   ).toMatchInlineSnapshot(`
-.emotion-2 {
-  box-sizing: border-box;
-  min-width: 0;
-  min-height: 0;
-}
-
 .emotion-0 {
   display: -webkit-box;
   display: -webkit-flex;
@@ -507,9 +453,16 @@ test("css prop overrides defaults", () => {
   box-sizing: border-box;
   min-width: 0;
   min-height: 0;
+  min-width: 100px;
+  width: 200px;
+  height: 300px;
+  width: 50%;
 }
 
 .emotion-1 {
+  box-sizing: border-box;
+  min-width: 0;
+  min-height: 0;
   min-width: 100px;
   width: 200px;
   height: 300px;
@@ -518,10 +471,10 @@ test("css prop overrides defaults", () => {
 
 <div>
   <div
-    className="emotion-0 emotion-1"
+    className="emotion-0"
   />
   <div
-    className="emotion-2 emotion-1"
+    className="emotion-1"
   />
 </div>
 `);
@@ -538,7 +491,7 @@ test("support server-side rendering", () => {
       )
     )
   ).toMatchInlineSnapshot(
-    `"<style data-emotion-css=\\"15o30dr 3c42lj\\">.css-15o30dr{box-sizing:border-box;min-width:0;min-height:0;}.css-3c42lj{padding-top:8px;padding-right:8px;padding-bottom:8px;padding-left:8px;}</style><div class=\\"css-15o30dr css-3c42lj\\" data-reactroot=\\"\\">Box</div><style data-emotion-css=\\"xc9yl4\\">.css-xc9yl4{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;box-sizing:border-box;min-width:0;min-height:0;}</style><div class=\\"css-xc9yl4 css-3c42lj\\" data-reactroot=\\"\\">Flex</div>"`
+    `"<style data-emotion-css=\\"p7tjj\\">.css-p7tjj{box-sizing:border-box;min-width:0;min-height:0;padding-top:8px;padding-right:8px;padding-bottom:8px;padding-left:8px;}</style><div class=\\"css-p7tjj\\" data-reactroot=\\"\\">Box</div><style data-emotion-css=\\"1gtc4va\\">.css-1gtc4va{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;box-sizing:border-box;min-width:0;min-height:0;padding-top:8px;padding-right:8px;padding-bottom:8px;padding-left:8px;}</style><div class=\\"css-1gtc4va\\" data-reactroot=\\"\\">Flex</div>"`
   );
 });
 
@@ -557,7 +510,7 @@ test("concat className with prop", () => {
   min-height: 0;
 }
 
-.emotion-2 {
+.emotion-1 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -569,10 +522,10 @@ test("concat className with prop", () => {
 
 <div>
   <div
-    className="emotion-0 emotion-1 custom-class-box"
+    className="custom-class-box emotion-0"
   />
   <div
-    className="emotion-2 emotion-1 custom-class-flex"
+    className="custom-class-flex emotion-1"
   />
 </div>
 `);

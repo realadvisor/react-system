@@ -1,7 +1,7 @@
 // @flow
 
 import * as React from "react";
-import { css } from "emotion";
+import { css, cx } from "emotion";
 import facepaint from "facepaint";
 import invariant from "tiny-invariant";
 
@@ -216,6 +216,12 @@ export const media = (styles: Styles) => {
   return media(styles);
 };
 
+const initialBoxStyle = /*#__PURE__*/ css({
+  boxSizing: "border-box",
+  minWidth: 0,
+  minHeight: 0
+});
+
 export const Box = ({
   is = "div",
   className = "",
@@ -224,11 +230,6 @@ export const Box = ({
   ...props
 }: BoxProps) => {
   const context = readContext(SystemContext);
-  const initialStyle = css({
-    boxSizing: "border-box",
-    minWidth: 0,
-    minHeight: 0
-  });
   const media = makeMedia(context);
   const styles = [...sizeStyles, ...spaceStyles, ...flexItemStyles];
   const generated = transformValues(props, context, styles);
@@ -238,12 +239,19 @@ export const Box = ({
   return React.createElement(
     is,
     {
-      className: `${initialStyle} ${generatedClassName} ${className}`.trim(),
+      className: cx(initialBoxStyle, generatedClassName, className),
       ...rest
     },
     children == null ? null : children
   );
 };
+
+const initialFlexStyle = /*#__PURE__*/ css({
+  display: "flex",
+  boxSizing: "border-box",
+  minWidth: 0,
+  minHeight: 0
+});
 
 export const Flex = ({
   is = "div",
@@ -253,12 +261,6 @@ export const Flex = ({
   ...props
 }: FlexProps) => {
   const context = readContext(SystemContext);
-  const initialStyle = css({
-    display: "flex",
-    boxSizing: "border-box",
-    minWidth: 0,
-    minHeight: 0
-  });
   const media = makeMedia(context);
   const styles = [
     ...sizeStyles,
@@ -273,7 +275,7 @@ export const Flex = ({
   return React.createElement(
     is,
     {
-      className: `${initialStyle} ${generatedClassName} ${className}`.trim(),
+      className: cx(initialFlexStyle, generatedClassName, className),
       ...rest
     },
     children == null ? null : children
