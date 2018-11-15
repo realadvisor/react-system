@@ -13,10 +13,12 @@ type Theme = {|
 type NumericProp = number | string | $ReadOnlyArray<number | string>;
 type StringProp = string | $ReadOnlyArray<string>;
 
+type CssProp = { [string]: mixed } | $ReadOnlyArray<CssProp>;
+
 type BoxProps = {
   is?: string,
   className?: string,
-  css?: { [string]: mixed } | $ReadOnlyArray<{ [string]: mixed }>,
+  css?: CssProp,
   children?: React.Node,
 
   width?: NumericProp,
