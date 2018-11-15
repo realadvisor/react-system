@@ -2,6 +2,8 @@
 
 import * as React from "react";
 import { css } from "emotion";
+import facepaint from "facepaint";
+import invariant from "tiny-invariant";
 
 type Theme = {|
   breakpoints: $ReadOnlyArray<number>,
@@ -14,7 +16,7 @@ type StringProp = string | $ReadOnlyArray<string>;
 type BoxProps = {
   is?: string,
   className?: string,
-  css?: { [string]: mixed },
+  css?: { [string]: mixed } | $ReadOnlyArray<{ [string]: mixed }>,
   children?: React.Node,
 
   width?: NumericProp,
@@ -80,58 +82,24 @@ function resolveDispatcher() {
 
 const readContext = <T>(Context: React.Context<T>): T => {
   const dispatcher = resolveDispatcher();
+  invariant(
+    dispatcher,
+    "Calling media outside of component render is not allowed"
+  );
   return dispatcher.readContext(Context);
 };
 
-const createMediaQuery = value =>
-  `@media screen and (min-width: ${
-    typeof value === "number" ? `${Math.ceil(value / 16)}em` : value
-  })`;
-
-const ensureArray = value => {
-  if (value == null) {
-    return [];
-  }
-  if (Array.isArray(value)) {
-    return value;
-  }
-  return [value];
-};
+const makeMedia = context =>
+  facepaint(
+    context.breakpoints.map(
+      value =>
+        `@media screen and (min-width: ${
+          typeof value === "number" ? `${Math.ceil(value / 16)}em` : value
+        })`
+    )
+  );
 
 const id2 = <T>(first: T, second: mixed): T => first;
-
-const compileStyles = (props, context, styles) => {
-  const mediaQueries = context.breakpoints.map(createMediaQuery);
-  const result = {};
-  // 1 more "zero" breakpoint
-  for (let i = 0; i < styles.length; i += 1) {
-    const { prop, cssProp = prop, transform = id2 } = styles[i];
-    const values = ensureArray(props[prop]).map(value =>
-      transform(value, context)
-    );
-    if (values.length !== 0) {
-      result[cssProp] = values[0];
-    }
-  }
-  // shift 1 to match values
-  for (let i = 1; i < mediaQueries.length + 1; i += 1) {
-    const mediaQuery = mediaQueries[i - 1];
-    for (let j = 0; j < styles.length; j += 1) {
-      const { prop, cssProp = prop, transform = id2 } = styles[j];
-      const values = ensureArray(props[prop]).map(value =>
-        transform(value, context)
-      );
-      if (i < values.length) {
-        const value = values[i];
-        if (result[mediaQuery] == null) {
-          result[mediaQuery] = {};
-        }
-        result[mediaQuery][cssProp] = value;
-      }
-    }
-  }
-  return result;
-};
 
 const makePercent = value => (value === 0 ? 0 : `${value * 100}%`);
 
@@ -224,6 +192,30 @@ const omit = (obj, blacklist) => {
 
 const getStylePropName = style => style.prop;
 
+const transformValues = (props, context, styles) => {
+  const generated = {};
+  for (let i = 0; i < styles.length; i += 1) {
+    const { prop, cssProp = prop, transform = id2 } = styles[i];
+    const value = props[prop];
+    if (value != null) {
+      generated[cssProp] = Array.isArray(value)
+        ? value.map(item => transform(item, context))
+        : transform(value, context);
+    }
+  }
+  return generated;
+};
+
+type Styles = {
+  [string]: number | string | Styles | $ReadOnlyArray<number | string | Styles>
+};
+
+export const media = (styles: Styles) => {
+  const context = readContext(SystemContext);
+  const media = makeMedia(context);
+  return media(styles);
+};
+
 export const Box = ({
   is = "div",
   className = "",
@@ -237,9 +229,10 @@ export const Box = ({
     minWidth: 0,
     minHeight: 0
   });
+  const media = makeMedia(context);
   const styles = [...sizeStyles, ...spaceStyles, ...flexItemStyles];
-  const generated = compileStyles(props, context, styles);
-  const generatedClassName = css(cssProp, generated);
+  const generated = transformValues(props, context, styles);
+  const generatedClassName = css(cssProp, media(generated));
   const rest = omit(props, styles.map(getStylePropName));
 
   return React.createElement(
@@ -266,14 +259,15 @@ export const Flex = ({
     minWidth: 0,
     minHeight: 0
   });
+  const media = makeMedia(context);
   const styles = [
     ...sizeStyles,
     ...spaceStyles,
     ...flexItemStyles,
     ...flexBoxStyles
   ];
-  const generated = compileStyles(props, context, styles);
-  const generatedClassName = css(cssProp, generated);
+  const generated = transformValues(props, context, styles);
+  const generatedClassName = css(cssProp, media(generated));
   const rest = omit(props, styles.map(getStylePropName));
 
   return React.createElement(

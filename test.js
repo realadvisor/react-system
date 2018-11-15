@@ -3,8 +3,9 @@
 import * as React from "react";
 import TestRenderer from "react-test-renderer";
 import { renderToString } from "react-dom/server";
+import { css } from "emotion";
 import { renderStylesToString } from "emotion-server";
-import { Box, Flex } from "./src/index.js";
+import { Box, Flex, media } from "./src/index.js";
 
 declare var test: Function;
 declare var expect: Function;
@@ -575,4 +576,56 @@ test("concat className with prop", () => {
   />
 </div>
 `);
+});
+
+test("media allow to pass responsive styles to css prop and emotion css()", () => {
+  const App = () => (
+    <div className={css(media({ display: ["block", "none"], color: "#fff" }))}>
+      <Box css={media({ overflow: ["hidden", "auto"], color: "#000" })} />
+    </div>
+  );
+
+  expect(TestRenderer.create(<App />).toJSON()).toMatchInlineSnapshot(`
+.emotion-0 {
+  box-sizing: border-box;
+  min-width: 0;
+  min-height: 0;
+}
+
+.emotion-2 {
+  display: block;
+  color: #fff;
+}
+
+@media screen and (min-width:48em) {
+  .emotion-2 {
+    display: none;
+  }
+}
+
+.emotion-1 {
+  overflow: hidden;
+  color: #000;
+}
+
+@media screen and (min-width:48em) {
+  .emotion-1 {
+    overflow: auto;
+  }
+}
+
+<div
+  className="emotion-2"
+>
+  <div
+    className="emotion-0 emotion-1"
+  />
+</div>
+`);
+});
+
+test("media called outside of component render throw an error", () => {
+  expect(() => {
+    media({ display: "block" });
+  }).toThrowError("Calling media outside of component render is not allowed");
 });
