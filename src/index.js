@@ -16,7 +16,7 @@ type StringProp = string | $ReadOnlyArray<string>;
 type CssProp = { [string]: mixed } | $ReadOnlyArray<CssProp>;
 
 type BoxProps = {
-  is?: string,
+  as?: string,
   className?: string,
   css?: CssProp,
   children?: React.Node,
@@ -225,7 +225,7 @@ const initialBoxStyle = /*#__PURE__*/ css({
 });
 
 export const Box = ({
-  is = "div",
+  as = "div",
   className = "",
   css: cssProp,
   children,
@@ -239,7 +239,7 @@ export const Box = ({
   const rest = omit(props, styles.map(getStylePropName));
 
   return React.createElement(
-    is,
+    as,
     {
       className: cx(initialBoxStyle, generatedClassName, className),
       ...rest
@@ -256,7 +256,7 @@ const initialFlexStyle = /*#__PURE__*/ css({
 });
 
 export const Flex = ({
-  is = "div",
+  as = "div",
   className = "",
   css: cssProp,
   children,
@@ -275,7 +275,7 @@ export const Flex = ({
   const rest = omit(props, styles.map(getStylePropName));
 
   return React.createElement(
-    is,
+    as,
     {
       className: cx(initialFlexStyle, generatedClassName, className),
       ...rest

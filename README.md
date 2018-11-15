@@ -86,10 +86,10 @@ The Flex component extends the Box component and sets display flex.
 
 ### Changing the HTML element
 
-Pass `is` prop with string to change default `div` tag.
+Pass `as` prop with string to change default `div` tag.
 
 ```js
-<Box is="header" />
+<Box as="header" />
 ```
 
 ### Spaces

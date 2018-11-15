@@ -404,8 +404,8 @@ test("pass is prop to render element other than div", () => {
   expect(
     TestRenderer.create(
       <div>
-        <Box is="header" />
-        <Flex is="section" />
+        <Box as="header" />
+        <Flex as="section" />
       </div>
     ).toJSON()
   ).toMatchInlineSnapshot(`
@@ -539,39 +539,36 @@ test("media allow to pass responsive styles to css prop and emotion css()", () =
   );
 
   expect(TestRenderer.create(<App />).toJSON()).toMatchInlineSnapshot(`
-.emotion-0 {
-  box-sizing: border-box;
-  min-width: 0;
-  min-height: 0;
-}
-
-.emotion-2 {
+.emotion-1 {
   display: block;
   color: #fff;
 }
 
 @media screen and (min-width:48em) {
-  .emotion-2 {
+  .emotion-1 {
     display: none;
   }
 }
 
-.emotion-1 {
+.emotion-0 {
+  box-sizing: border-box;
+  min-width: 0;
+  min-height: 0;
   overflow: hidden;
   color: #000;
 }
 
 @media screen and (min-width:48em) {
-  .emotion-1 {
+  .emotion-0 {
     overflow: auto;
   }
 }
 
 <div
-  className="emotion-2"
+  className="emotion-1"
 >
   <div
-    className="emotion-0 emotion-1"
+    className="emotion-0"
   />
 </div>
 `);
