@@ -579,3 +579,25 @@ test("media called outside of component render throw an error", () => {
     media({ display: "block" });
   }).toThrowError("Calling media outside of component render is not allowed");
 });
+
+test("zero paddings and margins are applied correctly", () => {
+  expect(TestRenderer.create(<Box m={0} p={0} />)).toMatchInlineSnapshot(`
+.emotion-0 {
+  box-sizing: border-box;
+  min-width: 0;
+  min-height: 0;
+  padding-top: 0;
+  padding-right: 0;
+  padding-bottom: 0;
+  padding-left: 0;
+  margin-top: 0;
+  margin-right: 0;
+  margin-bottom: 0;
+  margin-left: 0;
+}
+
+<div
+  className="emotion-0"
+/>
+`);
+});

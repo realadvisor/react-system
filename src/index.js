@@ -110,12 +110,29 @@ const getSizeValue = (value): string | number =>
     ? makePercent(Math.max(0, Math.min(value, 1)))
     : value;
 
+// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/sign#Polyfill
+const sign = x => {
+  // If x is NaN, the result is NaN.
+  // If x is -0, the result is -0.
+  // If x is +0, the result is +0.
+  // If x is negative and not -0, the result is -1.
+  // If x is positive and not +0, the result is +1.
+  return Number(x > 0) - Number(x < 0) || +x;
+  // A more aesthetical persuado-representation is shown below
+  //
+  // ( (x > 0) ? 0 : 1 )  // if x is negative then negative one
+  //          +           // else (because you cant be both - and +)
+  // ( (x < 0) ? 0 : -1 ) // if x is positive then positive one
+  //         ||           // if x is 0, -0, or NaN, or not a number,
+  //         +x           // Then the result will be x, (or) if x is
+  //                      // not a number, then x converts to number
+};
+
 const getSpace = (value, { spaces }) => {
   if (typeof value === "number") {
     const max = spaces.length - 1;
     const bound = Math.max(-max, Math.min(value, max));
-    const sign = bound / Math.abs(bound);
-    return sign * spaces[Math.abs(bound)];
+    return sign(bound) * spaces[Math.abs(bound)];
   } else {
     return value;
   }
