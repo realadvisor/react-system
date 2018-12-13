@@ -436,12 +436,62 @@ test("pass is prop to render element other than div", () => {
 `);
 });
 
-test("css prop overrides defaults", () => {
+test("css prop does not override props", () => {
   expect(
     TestRenderer.create(
       <div>
         <Flex width={1 / 2} css={{ minWidth: 100, width: 200, height: 300 }} />
         <Box width={1 / 2} css={{ minWidth: 100, width: 200, height: 300 }} />
+      </div>
+    ).toJSON()
+  ).toMatchInlineSnapshot(`
+.emotion-0 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  box-sizing: border-box;
+  min-width: 0;
+  min-height: 0;
+  min-width: 100px;
+  width: 200px;
+  height: 300px;
+  width: 50%;
+}
+
+.emotion-1 {
+  box-sizing: border-box;
+  min-width: 0;
+  min-height: 0;
+  min-width: 100px;
+  width: 200px;
+  height: 300px;
+  width: 50%;
+}
+
+<div>
+  <div
+    className="emotion-0"
+  />
+  <div
+    className="emotion-1"
+  />
+</div>
+`);
+});
+
+test("className does not override props", () => {
+  expect(
+    TestRenderer.create(
+      <div>
+        <Flex
+          width={1 / 2}
+          className={css({ minWidth: 100, width: 200, height: 300 })}
+        />
+        <Box
+          width={1 / 2}
+          className={css({ minWidth: 100, width: 200, height: 300 })}
+        />
       </div>
     ).toJSON()
   ).toMatchInlineSnapshot(`

@@ -258,7 +258,7 @@ export const Box = ({
   return React.createElement(
     as,
     {
-      className: cx(initialBoxStyle, generatedClassName, className),
+      className: cx(initialBoxStyle, className, generatedClassName),
       ...rest
     },
     children == null ? null : children
@@ -294,7 +294,7 @@ export const Flex = ({
   return React.createElement(
     as,
     {
-      className: cx(initialFlexStyle, generatedClassName, className),
+      className: cx(initialFlexStyle, className, generatedClassName),
       ...rest
     },
     children == null ? null : children
