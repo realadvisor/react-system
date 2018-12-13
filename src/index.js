@@ -16,7 +16,7 @@ type StringProp = string | $ReadOnlyArray<string>;
 type CssProp = { [string]: mixed } | $ReadOnlyArray<CssProp>;
 
 type BoxProps = {
-  as?: string,
+  as?: React.ElementType,
   className?: string,
   css?: CssProp,
   children?: React.Node,
@@ -253,7 +253,7 @@ export const Box = React.forwardRef<
   const rest = omit(props, styles.map(getStylePropName));
 
   return React.createElement(
-    as,
+    (as: any),
     {
       ref,
       className: cx(initialBoxStyle, className, generatedClassName),
@@ -289,7 +289,7 @@ export const Flex = React.forwardRef<
   const rest = omit(props, styles.map(getStylePropName));
 
   return React.createElement(
-    as,
+    (as: any),
     {
       ref,
       className: cx(initialFlexStyle, className, generatedClassName),
@@ -298,3 +298,5 @@ export const Flex = React.forwardRef<
     children == null ? null : children
   );
 });
+
+Flex.displayName = "Flex";
