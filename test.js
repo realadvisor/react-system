@@ -541,7 +541,7 @@ test("support server-side rendering", () => {
       )
     )
   ).toMatchInlineSnapshot(
-    `"<style data-emotion-css=\\"p7tjj\\">.css-p7tjj{box-sizing:border-box;min-width:0;min-height:0;padding-top:8px;padding-right:8px;padding-bottom:8px;padding-left:8px;}</style><div class=\\"css-p7tjj\\" data-reactroot=\\"\\">Box</div><style data-emotion-css=\\"1gtc4va\\">.css-1gtc4va{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;box-sizing:border-box;min-width:0;min-height:0;padding-top:8px;padding-right:8px;padding-bottom:8px;padding-left:8px;}</style><div class=\\"css-1gtc4va\\" data-reactroot=\\"\\">Flex</div>"`
+    `"<style data-emotion-css=\\"p7tjj\\">.css-p7tjj{box-sizing:border-box;min-width:0;min-height:0;padding-top:8px;padding-right:8px;padding-bottom:8px;padding-left:8px;}</style><div class=\\"css-p7tjj\\">Box</div><style data-emotion-css=\\"1gtc4va\\">.css-1gtc4va{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;box-sizing:border-box;min-width:0;min-height:0;padding-top:8px;padding-right:8px;padding-bottom:8px;padding-left:8px;}</style><div class=\\"css-1gtc4va\\">Flex</div>"`
   );
 });
 
