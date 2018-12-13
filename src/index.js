@@ -241,29 +241,27 @@ const initialBoxStyle = /*#__PURE__*/ css({
   minHeight: 0
 });
 
-export const Box = ({
-  as = "div",
-  className = "",
-  css: cssProp,
-  children,
-  ...props
-}: BoxProps) => {
-  const context = readContext(SystemContext);
-  const media = makeMedia(context);
-  const styles = [...sizeStyles, ...spaceStyles, ...flexItemStyles];
-  const generated = transformValues(props, context, styles);
-  const generatedClassName = css(cssProp, media(generated));
-  const rest = omit(props, styles.map(getStylePropName));
+export const Box = React.forwardRef<BoxProps, HTMLElement>(
+  ({ as = "div", className = "", css: cssProp, children, ...props }) => {
+    const context = readContext(SystemContext);
+    const media = makeMedia(context);
+    const styles = [...sizeStyles, ...spaceStyles, ...flexItemStyles];
+    const generated = transformValues(props, context, styles);
+    const generatedClassName = css(cssProp, media(generated));
+    const rest = omit(props, styles.map(getStylePropName));
 
-  return React.createElement(
-    as,
-    {
-      className: cx(initialBoxStyle, className, generatedClassName),
-      ...rest
-    },
-    children == null ? null : children
-  );
-};
+    return React.createElement(
+      as,
+      {
+        className: cx(initialBoxStyle, className, generatedClassName),
+        ...rest
+      },
+      children == null ? null : children
+    );
+  }
+);
+
+Box.displayName = "Box";
 
 const initialFlexStyle = /*#__PURE__*/ css({
   display: "flex",
@@ -272,31 +270,27 @@ const initialFlexStyle = /*#__PURE__*/ css({
   minHeight: 0
 });
 
-export const Flex = ({
-  as = "div",
-  className = "",
-  css: cssProp,
-  children,
-  ...props
-}: FlexProps) => {
-  const context = readContext(SystemContext);
-  const media = makeMedia(context);
-  const styles = [
-    ...sizeStyles,
-    ...spaceStyles,
-    ...flexItemStyles,
-    ...flexBoxStyles
-  ];
-  const generated = transformValues(props, context, styles);
-  const generatedClassName = css(cssProp, media(generated));
-  const rest = omit(props, styles.map(getStylePropName));
+export const Flex = React.forwardRef<FlexProps, HTMLElement>(
+  ({ as = "div", className = "", css: cssProp, children, ...props }) => {
+    const context = readContext(SystemContext);
+    const media = makeMedia(context);
+    const styles = [
+      ...sizeStyles,
+      ...spaceStyles,
+      ...flexItemStyles,
+      ...flexBoxStyles
+    ];
+    const generated = transformValues(props, context, styles);
+    const generatedClassName = css(cssProp, media(generated));
+    const rest = omit(props, styles.map(getStylePropName));
 
-  return React.createElement(
-    as,
-    {
-      className: cx(initialFlexStyle, className, generatedClassName),
-      ...rest
-    },
-    children == null ? null : children
-  );
-};
+    return React.createElement(
+      as,
+      {
+        className: cx(initialFlexStyle, className, generatedClassName),
+        ...rest
+      },
+      children == null ? null : children
+    );
+  }
+);
