@@ -70,26 +70,24 @@ const defaultTheme: Theme = {
   spaces: [0, 4, 8, 16, 32, 64, 128, 256]
 };
 
-export const SystemContext = /*#__PURE__*/ React.createContext<Theme>(
-  defaultTheme
-);
+export const SystemContext = React.createContext<Theme>(defaultTheme);
 
-function resolveDispatcher() {
-  const ReactCurrentOwner =
-    // $FlowFixMe
-    React.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED.ReactCurrentOwner;
-  const dispatcher = ReactCurrentOwner.currentDispatcher;
-  return dispatcher;
-}
+const {
+  ReactCurrentDispatcher,
+  ReactCurrentOwner
+} = (React: any).__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
 
-const readContext = <T>(Context: React.Context<T>): T => {
-  const dispatcher = resolveDispatcher();
+function readContext<T>(Context: React.Context<T>): T {
+  const dispatcher =
+    ReactCurrentDispatcher != null
+      ? ReactCurrentDispatcher.current
+      : ReactCurrentOwner.currentDispatcher;
   invariant(
     dispatcher,
     "Calling media outside of component render is not allowed"
   );
   return dispatcher.readContext(Context);
-};
+}
 
 const makeMedia = context =>
   facepaint(
@@ -235,7 +233,7 @@ export const media = (styles: Styles) => {
   return media(styles);
 };
 
-const initialBoxStyle = /*#__PURE__*/ css({
+const initialBoxStyle = css({
   boxSizing: "border-box",
   minWidth: 0,
   minHeight: 0
@@ -265,7 +263,7 @@ export const Box = React.forwardRef<
 
 Box.displayName = "Box";
 
-const initialFlexStyle = /*#__PURE__*/ css({
+const initialFlexStyle = css({
   display: "flex",
   boxSizing: "border-box",
   minWidth: 0,
