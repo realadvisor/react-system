@@ -58,7 +58,7 @@ type FlexProps = {
   alignContent?: StringProp,
   justifyItems?: StringProp,
   justifyContent?: StringProp,
-  flexFlow: ForbiddenShorthandProp,
+  flexFlow?: ForbiddenShorthandProp,
   flexWrap?: StringProp,
   flexDirection?: StringProp
 };
