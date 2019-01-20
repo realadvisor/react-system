@@ -4,6 +4,24 @@ import * as React from "react";
 import { css, cx } from "emotion";
 import facepaint from "facepaint";
 import invariant from "tiny-invariant";
+import type {
+  StandardLonghandProperties,
+  JustifySelfProperty,
+  AlignSelfProperty,
+  AlignItemsProperty,
+  AlignContentProperty,
+  JustifyItemsProperty,
+  JustifyContentProperty,
+  FlexWrapProperty,
+  FlexDirectionProperty
+} from "csstype";
+
+// emotion adds units to numbers
+type Properties = StandardLonghandProperties<number>;
+type FlexGrowProperty = $ElementType<Properties, "flexGrow">;
+type FlexShrinkProperty = $ElementType<Properties, "flexShrink">;
+type FlexBasisProperty = $ElementType<Properties, "flexBasis">;
+type OrderProperty = $ElementType<Properties, "order">;
 
 type Theme = {|
   breakpoints: $ReadOnlyArray<number>,
@@ -13,9 +31,10 @@ type Theme = {|
 opaque type ForbiddenShorthandProp = string;
 
 type NumericProp = number | string | $ReadOnlyArray<number | string>;
-type StringProp = string | $ReadOnlyArray<string>;
 
 type CssProp = { [string]: mixed } | $ReadOnlyArray<CssProp>;
+
+type MediaProp<T> = $ReadOnlyArray<T> | T;
 
 type BoxProps = {
   as?: React.ElementType,
@@ -44,23 +63,23 @@ type BoxProps = {
   ml?: NumericProp,
 
   flex?: ForbiddenShorthandProp,
-  flexGrow?: NumericProp,
-  flexShrink?: NumericProp,
-  flexBasis?: NumericProp,
-  justifySelf?: StringProp,
-  alignSelf?: StringProp,
-  order?: NumericProp
+  flexGrow?: MediaProp<FlexGrowProperty>,
+  flexShrink?: MediaProp<FlexShrinkProperty>,
+  flexBasis?: MediaProp<FlexBasisProperty>,
+  justifySelf?: MediaProp<JustifySelfProperty>,
+  alignSelf?: MediaProp<AlignSelfProperty>,
+  order?: MediaProp<OrderProperty>
 };
 
 type FlexProps = {
   ...BoxProps,
-  alignItems?: StringProp,
-  alignContent?: StringProp,
-  justifyItems?: StringProp,
-  justifyContent?: StringProp,
+  alignItems?: MediaProp<AlignItemsProperty>,
+  alignContent?: MediaProp<AlignContentProperty>,
+  justifyItems?: MediaProp<JustifyItemsProperty>,
+  justifyContent?: MediaProp<JustifyContentProperty>,
   flexFlow?: ForbiddenShorthandProp,
-  flexWrap?: StringProp,
-  flexDirection?: StringProp
+  flexWrap?: MediaProp<FlexWrapProperty>,
+  flexDirection?: MediaProp<FlexDirectionProperty>
 };
 
 type Descriptor = {|

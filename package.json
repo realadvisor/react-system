@@ -47,6 +47,7 @@
   },
   "dependencies": {
     "@babel/runtime": "^7.2.0",
+    "csstype": "^2.6.1",
     "emotion": "^9.2.12",
     "facepaint": "^1.2.1",
     "tiny-invariant": "^1.0.3"

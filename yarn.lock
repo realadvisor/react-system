@@ -1725,6 +1725,11 @@ csstype@^2.5.2:
   version "2.5.7"
   resolved "https://registry.yarnpkg.com/csstype/-/csstype-2.5.7.tgz#bf9235d5872141eccfb2d16d82993c6b149179ff"
 
+csstype@^2.6.1:
+  version "2.6.1"
+  resolved "https://registry.yarnpkg.com/csstype/-/csstype-2.6.1.tgz#4cfbf637a577497036ebcd7e32647ef19a0b8076"
+  integrity sha512-wv7IRqCGsL7WGKB8gPvrl+++HlFM9kxAM6jL1EXNPNTshEJYilMkbfS2SnuHha77uosp/YVK0wAp2jmlBzn1tg==
+
 cyclist@~0.2.2:
   version "0.2.2"
   resolved "https://registry.yarnpkg.com/cyclist/-/cyclist-0.2.2.tgz#1b33792e11e914a2fd6d6ed6447464444e5fa640"
