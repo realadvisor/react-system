@@ -67,9 +67,11 @@ Margin and padding props follow a shorthand syntax for specifying direction.
 
 #### Flex items props
 
-- flex (string|array) sets the flex property.
-- order (number|string|array) sets the order property.
-- alignSelf (string|array) - sets the align-self property.
+- flexGrow (number|array) sets the flex-grow property
+- flexShrink (number|array) sets the flex-shrink property
+- flexBasis (number|array) sets the flex-basis property
+- order (number|string|array) sets the order property
+- alignSelf (string|array) - sets the align-self property
 
 #### css (string|object)
 

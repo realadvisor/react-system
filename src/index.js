@@ -10,6 +10,8 @@ type Theme = {|
   spaces: $ReadOnlyArray<number>
 |};
 
+opaque type ForbiddenShorthandProp = string;
+
 type NumericProp = number | string | $ReadOnlyArray<number | string>;
 type StringProp = string | $ReadOnlyArray<string>;
 
@@ -41,7 +43,10 @@ type BoxProps = {
   mb?: NumericProp,
   ml?: NumericProp,
 
-  flex?: NumericProp,
+  flex?: ForbiddenShorthandProp,
+  flexGrow?: NumericProp,
+  flexShrink?: NumericProp,
+  flexBasis?: NumericProp,
   justifySelf?: StringProp,
   alignSelf?: StringProp,
   order?: NumericProp
@@ -53,6 +58,7 @@ type FlexProps = {
   alignContent?: StringProp,
   justifyItems?: StringProp,
   justifyContent?: StringProp,
+  flexFlow: ForbiddenShorthandProp,
   flexWrap?: StringProp,
   flexDirection?: StringProp
 };
@@ -182,7 +188,9 @@ const spaceStyles: $ReadOnlyArray<Descriptor> = [
 ];
 
 const flexItemStyles: $ReadOnlyArray<Descriptor> = [
-  { prop: "flex" },
+  { prop: "flexGrow" },
+  { prop: "flexShrink" },
+  { prop: "flexBasis" },
   { prop: "justifySelf" },
   { prop: "alignSelf" },
   { prop: "order" }

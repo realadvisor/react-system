@@ -328,16 +328,30 @@ test("skip responsive values over breakpoints count", () => {
 test("support flex item properties", () => {
   expect(
     TestRenderer.create(
-      <Box flex={1} justifySelf="center" alignSelf="flex-end" order={2} />
+      <Box
+        flexGrow={2}
+        flexShrink={3}
+        flexBasis={100}
+        justifySelf="center"
+        alignSelf="flex-end"
+        order={2}
+      />
     ).toJSON()
   ).toMatchInlineSnapshot(`
 .emotion-0 {
   box-sizing: border-box;
   min-width: 0;
   min-height: 0;
-  -webkit-flex: 1;
-  -ms-flex: 1;
-  flex: 1;
+  -webkit-box-flex: 2;
+  -webkit-flex-grow: 2;
+  -ms-flex-positive: 2;
+  flex-grow: 2;
+  -webkit-flex-shrink: 3;
+  -ms-flex-negative: 3;
+  flex-shrink: 3;
+  -webkit-flex-basis: 100px;
+  -ms-flex-preferred-size: 100px;
+  flex-basis: 100px;
   justify-self: center;
   -webkit-align-self: flex-end;
   -ms-flex-item-align: end;
