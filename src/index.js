@@ -28,7 +28,7 @@ type Theme = {|
   spaces: $ReadOnlyArray<number>
 |};
 
-opaque type ForbiddenShorthandProp = string;
+opaque type ForbiddenShorthandProp = mixed;
 
 type NumericProp = number | string | $ReadOnlyArray<number | string>;
 
@@ -62,13 +62,18 @@ type BoxProps = {
   mb?: NumericProp,
   ml?: NumericProp,
 
-  flex?: ForbiddenShorthandProp,
   flexGrow?: MediaProp<FlexGrowProperty>,
   flexShrink?: MediaProp<FlexShrinkProperty>,
   flexBasis?: MediaProp<FlexBasisProperty>,
   justifySelf?: MediaProp<JustifySelfProperty>,
   alignSelf?: MediaProp<AlignSelfProperty>,
-  order?: MediaProp<OrderProperty>
+  order?: MediaProp<OrderProperty>,
+
+  flex?: ForbiddenShorthandProp,
+  fontSize?: ForbiddenShorthandProp,
+  color?: ForbiddenShorthandProp,
+  bg?: ForbiddenShorthandProp,
+  w?: ForbiddenShorthandProp
 };
 
 type FlexProps = {
@@ -77,9 +82,10 @@ type FlexProps = {
   alignContent?: MediaProp<AlignContentProperty>,
   justifyItems?: MediaProp<JustifyItemsProperty>,
   justifyContent?: MediaProp<JustifyContentProperty>,
-  flexFlow?: ForbiddenShorthandProp,
   flexWrap?: MediaProp<FlexWrapProperty>,
-  flexDirection?: MediaProp<FlexDirectionProperty>
+  flexDirection?: MediaProp<FlexDirectionProperty>,
+
+  flexFlow?: ForbiddenShorthandProp
 };
 
 type Descriptor = {|
