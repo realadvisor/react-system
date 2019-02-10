@@ -153,7 +153,7 @@ export const useSystem = (): System => {
   return { media, responsive };
 };
 
-/* media utility*/
+/* deprecated media utility*/
 
 const {
   ReactCurrentDispatcher,
@@ -312,8 +312,8 @@ export const Box = React.forwardRef<
   BoxProps,
   React.ElementRef<React.ElementType>
 >(({ as = "div", className = "", css: cssProp, children, ...props }, ref) => {
-  const context = readContext(SystemContext);
-  const media = makeMedia(context);
+  const context = React.useContext(SystemContext);
+  const { media } = useSystem();
   const styles = [...sizeStyles, ...spaceStyles, ...flexItemStyles];
   const generated = transformValues(props, context, styles);
   const generatedClassName = css(cssProp, media(generated));
@@ -343,8 +343,8 @@ export const Flex = React.forwardRef<
   FlexProps,
   React.ElementRef<React.ElementType>
 >(({ as = "div", className = "", css: cssProp, children, ...props }, ref) => {
-  const context = readContext(SystemContext);
-  const media = makeMedia(context);
+  const context = React.useContext(SystemContext);
+  const { media } = useSystem();
   const styles = [
     ...sizeStyles,
     ...spaceStyles,

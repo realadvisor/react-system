@@ -12,6 +12,16 @@ declare var jest: Function;
 declare var test: Function;
 declare var expect: Function;
 
+window.matchMedia = jest.fn().mockImplementation(query => {
+  return {
+    matches: false,
+    media: query,
+    onchange: null,
+    addListener: jest.fn(),
+    removeListener: jest.fn()
+  };
+});
+
 test("support width and height", () => {
   expect(TestRenderer.create(<Box width="100px" height="10em" />).toJSON())
     .toMatchInlineSnapshot(`
