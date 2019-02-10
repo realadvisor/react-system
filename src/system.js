@@ -101,7 +101,7 @@ const defaultTheme: Theme = {
   spaces: [0, 4, 8, 16, 32, 64, 128, 256]
 };
 
-export const SystemContext = React.createContext<Theme>(defaultTheme);
+const SystemContext = React.createContext<Theme>(defaultTheme);
 
 const makeQuery = value => {
   const convertedValue =
@@ -111,6 +111,8 @@ const makeQuery = value => {
 
 const makeMedia = context =>
   facepaint(context.breakpoints.map(bp => `@media ${makeQuery(bp)}`));
+
+export const SystemProvider = SystemContext.Provider;
 
 /* system hook */
 
