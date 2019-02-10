@@ -2,14 +2,14 @@
   "name": "react-system",
   "version": "0.8.1",
   "description": "Flex box system for react based on emotion",
-  "main": "dist/index.cjs.js",
-  "module": "dist/index.esm.js",
+  "main": "dist/system.cjs.js",
+  "module": "dist/system.esm.js",
   "files": [
     "dist",
     "src"
   ],
   "scripts": {
-    "types": "echo \"// @flow\n\nexport * from '../src';\" > dist/index.cjs.js.flow",
+    "types": "echo \"// @flow\n\nexport * from '../src/system.js';\" > dist/system.cjs.js.flow",
     "build": "rm -rf dist && rollup -c && yarn types",
     "test": "jest && yarn flow check",
     "prepublish": "yarn build"

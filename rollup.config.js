@@ -6,13 +6,13 @@ const external = id => !id.startsWith(".") && !id.startsWith("/");
 
 export default [
   {
-    input: "./src/index.js",
+    input: "./src/system.js",
     output: { file: pkg.main, format: "cjs" },
     external,
     plugins: [babel()]
   },
   {
-    input: "./src/index.js",
+    input: "./src/system.js",
     output: { file: pkg.module, format: "esm" },
     external,
     plugins: [

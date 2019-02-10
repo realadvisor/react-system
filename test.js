@@ -5,7 +5,7 @@ import TestRenderer from "react-test-renderer";
 import { renderToString } from "react-dom/server";
 import { css } from "emotion";
 import { renderStylesToString } from "emotion-server";
-import { Box, Flex, media } from "./src/index.js";
+import { Box, Flex, media } from "./src/system.js";
 
 declare var test: Function;
 declare var expect: Function;
