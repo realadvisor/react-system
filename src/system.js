@@ -103,6 +103,58 @@ const defaultTheme: Theme = {
 
 export const SystemContext = React.createContext<Theme>(defaultTheme);
 
+const makeQuery = value => {
+  const convertedValue =
+    typeof value === "number" ? `${Math.ceil(value / 16)}em` : value;
+  return `screen and (min-width: ${convertedValue})`;
+};
+
+const makeMedia = context =>
+  facepaint(context.breakpoints.map(bp => `@media ${makeQuery(bp)}`));
+
+/* system hook */
+
+type Styles = {
+  [string]: number | string | Styles | $ReadOnlyArray<number | string | Styles>
+};
+
+type System = {|
+  media: Styles => { [string]: mixed },
+  responsive: <T>($ReadOnlyArray<T>) => T
+|};
+
+export const useSystem = (): System => {
+  const context = React.useContext(SystemContext);
+  const media = makeMedia(context);
+  const [index, setIndex] = React.useState(0);
+
+  React.useEffect(() => {
+    const handleResize = () => {
+      let currentIndex = 0;
+      context.breakpoints.forEach((bp, i) => {
+        if (window.matchMedia(makeQuery(bp)).matches) {
+          // one more for smallest value
+          currentIndex = i + 1;
+        }
+      });
+      setIndex(currentIndex);
+    };
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  });
+
+  const responsive = <T>(values: $ReadOnlyArray<T>): T => {
+    return values[Math.max(0, Math.min(index, values.length - 1))];
+  };
+
+  return { media, responsive };
+};
+
+/* media utility*/
+
 const {
   ReactCurrentDispatcher,
   ReactCurrentOwner
@@ -113,22 +165,16 @@ function readContext<T>(Context: React.Context<T>): T {
     ReactCurrentDispatcher != null
       ? ReactCurrentDispatcher.current
       : ReactCurrentOwner.currentDispatcher;
-  invariant(
-    dispatcher,
-    "Calling media outside of component render is not allowed"
-  );
   return dispatcher.readContext(Context);
 }
 
-const makeMedia = context =>
-  facepaint(
-    context.breakpoints.map(
-      value =>
-        `@media screen and (min-width: ${
-          typeof value === "number" ? `${Math.ceil(value / 16)}em` : value
-        })`
-    )
-  );
+export const media = (styles: Styles) => {
+  const context = readContext(SystemContext);
+  const media = makeMedia(context);
+  return media(styles);
+};
+
+/* Flex/Box */
 
 const id2 = <T>(first: T, second: mixed): T => first;
 
@@ -254,16 +300,6 @@ const transformValues = (props, context, styles) => {
     }
   }
   return generated;
-};
-
-type Styles = {
-  [string]: number | string | Styles | $ReadOnlyArray<number | string | Styles>
-};
-
-export const media = (styles: Styles) => {
-  const context = readContext(SystemContext);
-  const media = makeMedia(context);
-  return media(styles);
 };
 
 const initialBoxStyle = css({

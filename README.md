@@ -104,6 +104,10 @@ The default scale is `[ 0, 4, 8, 16, 32, 64, 128, 256 ]`.
 
 The Flex and Box components use a mobile-first responsive approach, where any value set works from that breakpoint and wider. Breakpoints are hard-coded to the following min-widths: `[768, 1280, 1920]`.
 
+### useSystem()
+
+System hook provides two utilities `media` for styles and `responsive` for values.
+
 ### media(styles)
 
 An utility function which allows to write responsive styles similar to Flex/Box props.
@@ -111,12 +115,31 @@ An utility function which allows to write responsive styles similar to Flex/Box 
 _Note: `media()` can be called only inside of component render._
 
 ```js
+import { Box, useSystem } from "react-system";
+
 const Component = () => {
+  const { media } = useSystem();
+
   return (
     <Box css={media({ background: ["#000", "#fff"] })}>
       <div className={css(media({ color: ["#fff", "#000"] }))}>Content</div>
     </Box>
   );
+};
+```
+
+### responsive(values)
+
+This utility allows to match values with media queries in system style.
+
+```js
+const { useSystem } from 'react-system';
+
+const Component = () => {
+  const { responsive } = useSystem();
+
+  // show dialog as fullscreen on mobile and like window on desktop
+  return <Dialog fullScreen={responsive([true, false])} />;
 };
 ```
 

@@ -1,12 +1,14 @@
 // @flow
 
 import * as React from "react";
+import * as ReactDOM from "react-dom";
 import TestRenderer from "react-test-renderer";
 import { renderToString } from "react-dom/server";
 import { css } from "emotion";
 import { renderStylesToString } from "emotion-server";
-import { Box, Flex, media } from "./src/system.js";
+import { Box, Flex, media as mediaUtil, useSystem } from "./src/system.js";
 
+declare var jest: Function;
 declare var test: Function;
 declare var expect: Function;
 
@@ -595,10 +597,76 @@ test("concat className with prop", () => {
 `);
 });
 
-test("media allow to pass responsive styles to css prop and emotion css()", () => {
+test("system media allow to pass responsive styles to css prop and emotion css()", () => {
+  const App = () => {
+    const { media } = useSystem();
+
+    return (
+      <div
+        className={css(media({ display: ["block", "none"], color: "#fff" }))}
+      >
+        <Box css={media({ overflow: ["hidden", "auto"], color: "#000" })} />
+      </div>
+    );
+  };
+
+  expect(TestRenderer.create(<App />).toJSON()).toMatchInlineSnapshot(`
+.emotion-1 {
+  display: block;
+  color: #fff;
+}
+
+@media screen and (min-width:48em) {
+  .emotion-1 {
+    display: none;
+  }
+}
+
+.emotion-0 {
+  box-sizing: border-box;
+  min-width: 0;
+  min-height: 0;
+  overflow: hidden;
+  color: #000;
+}
+
+@media screen and (min-width:48em) {
+  .emotion-0 {
+    overflow: auto;
+  }
+}
+
+<div
+  className="emotion-1"
+>
+  <div
+    className="emotion-0"
+  />
+</div>
+`);
+});
+
+// TODO add better tests
+test("system responsive allows to get value in system like style", () => {
+  let result;
+  const App = () => {
+    const { responsive } = useSystem();
+    result = responsive([1, 2, 3, 4]);
+    return null;
+  };
+
+  const element = document.createElement("div");
+  ReactDOM.render(<App />, element);
+
+  expect(result).toEqual(1);
+});
+
+test("media util allow to pass responsive styles to css prop and emotion css()", () => {
   const App = () => (
-    <div className={css(media({ display: ["block", "none"], color: "#fff" }))}>
-      <Box css={media({ overflow: ["hidden", "auto"], color: "#000" })} />
+    <div
+      className={css(mediaUtil({ display: ["block", "none"], color: "#fff" }))}
+    >
+      <Box css={mediaUtil({ overflow: ["hidden", "auto"], color: "#000" })} />
     </div>
   );
 
@@ -638,10 +706,10 @@ test("media allow to pass responsive styles to css prop and emotion css()", () =
 `);
 });
 
-test("media called outside of component render throw an error", () => {
+test("media util called outside of component render throw an error", () => {
   expect(() => {
-    media({ display: "block" });
-  }).toThrowError("Calling media outside of component render is not allowed");
+    mediaUtil({ display: "block" });
+  }).toThrowError(/Context can only be read while React is rendering/);
 });
 
 test("zero paddings and margins are applied correctly", () => {
