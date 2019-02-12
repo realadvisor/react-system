@@ -122,7 +122,9 @@ const Component = () => {
 
   return (
     <Box css={media({ background: ["#000", "#fff"] })}>
-      <div className={css(media({ color: ["#fff", "#000"] }))}>Content</div>
+      <div className={css(media([{ color: "#fff" }, { color: "#000" }]))}>
+        Content
+      </div>
     </Box>
   );
 };

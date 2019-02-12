@@ -656,6 +656,86 @@ test("system media allow to pass responsive styles to css prop and emotion css()
 `);
 });
 
+test("system media allow to pass array of rules", () => {
+  const App = () => {
+    const { media } = useSystem();
+
+    return (
+      <div
+        className={css(
+          media([
+            { display: "block", color: "#fff" },
+            { display: "none", color: "#000" },
+            { display: "flex", color: "#666" }
+          ])
+        )}
+      >
+        <Box
+          css={media([
+            { overflow: "hidden", color: "#000" },
+            { overflow: "auto", color: "#fff" },
+            { overflow: "scroll", color: "#888" }
+          ])}
+        />
+      </div>
+    );
+  };
+
+  expect(TestRenderer.create(<App />).toJSON()).toMatchInlineSnapshot(`
+.emotion-1 {
+  display: block;
+  color: #fff;
+}
+
+@media screen and (min-width:48em) {
+  .emotion-1 {
+    display: none;
+    color: #000;
+  }
+}
+
+@media screen and (min-width:80em) {
+  .emotion-1 {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    color: #666;
+  }
+}
+
+.emotion-0 {
+  box-sizing: border-box;
+  min-width: 0;
+  min-height: 0;
+  overflow: hidden;
+  color: #000;
+}
+
+@media screen and (min-width:48em) {
+  .emotion-0 {
+    overflow: auto;
+    color: #fff;
+  }
+}
+
+@media screen and (min-width:80em) {
+  .emotion-0 {
+    overflow: scroll;
+    color: #888;
+  }
+}
+
+<div
+  className="emotion-1"
+>
+  <div
+    className="emotion-0"
+  />
+</div>
+`);
+});
+
 // TODO add better tests
 test("system responsive allows to get value in system like style", () => {
   let result;

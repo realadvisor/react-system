@@ -109,16 +109,40 @@ const makeQuery = value => {
   return `screen and (min-width: ${convertedValue})`;
 };
 
-const makeMedia = context =>
-  facepaint(context.breakpoints.map(bp => `@media ${makeQuery(bp)}`));
+const makeMediaRules = queries => (styles: any) => {
+  const result = styles[0];
+  styles.slice(1).forEach((style, index) => {
+    result[queries[index]] = style;
+  });
+  return result;
+};
+
+const makeMedia = context => {
+  const queries = context.breakpoints.map(bp => `@media ${makeQuery(bp)}`);
+  const fp = facepaint(queries);
+  const mr = makeMediaRules(queries);
+  return styles => {
+    if (Array.isArray(styles)) {
+      return mr(styles);
+    } else {
+      return fp(styles);
+    }
+  };
+};
 
 export const SystemProvider = SystemContext.Provider;
 
 /* system hook */
 
-type Styles = {
-  [string]: number | string | Styles | $ReadOnlyArray<number | string | Styles>
+type BasicStyles = {
+  [string]: number | string | BasicStyles
 };
+
+type MediaPropStyles = {
+  [string]: number | string | $ReadOnlyArray<number | string> | MediaPropStyles
+};
+
+type Styles = $ReadOnlyArray<BasicStyles> | MediaPropStyles;
 
 type System = {|
   media: Styles => { [string]: mixed },
