@@ -47,7 +47,9 @@ type BoxProps = {
 
   p?: NumericProp,
   ph?: NumericProp,
+  px?: NumericProp,
   pv?: NumericProp,
+  py?: NumericProp,
   pt?: NumericProp,
   pr?: NumericProp,
   pb?: NumericProp,
@@ -117,11 +119,13 @@ const makeMediaRules = queries => (styles: any) => {
   return result;
 };
 
+export const SystemProvider = SystemContext.Provider;
+
 const makeMedia = context => {
   const queries = context.breakpoints.map(bp => `@media ${makeQuery(bp)}`);
   const fp = facepaint(queries);
   const mr = makeMediaRules(queries);
-  return styles => {
+  return (styles: Styles): { [string]: mixed } => {
     if (Array.isArray(styles)) {
       return mr(styles);
     } else {
@@ -129,8 +133,6 @@ const makeMedia = context => {
     }
   };
 };
-
-export const SystemProvider = SystemContext.Provider;
 
 /* system hook */
 
@@ -144,12 +146,7 @@ type MediaPropStyles = {
 
 type Styles = $ReadOnlyArray<BasicStyles> | MediaPropStyles;
 
-type System = {|
-  media: Styles => { [string]: mixed },
-  responsive: <T>($ReadOnlyArray<T>) => T
-|};
-
-export const useSystem = (): System => {
+export const useSystem = () => {
   const context = React.useContext(SystemContext);
   const media = makeMedia(context);
   const [index, setIndex] = React.useState(0);
@@ -176,7 +173,45 @@ export const useSystem = (): System => {
     return values[Math.max(0, Math.min(index, values.length - 1))];
   };
 
-  return { media, responsive };
+  const toSpace = value => {
+    return Array.isArray(value)
+      ? value.map(item => getSpace(item, context))
+      : getSpace(value, context);
+  };
+
+  const pt = (v: NumericProp) => media({ paddingTop: toSpace(v) });
+  const pr = (v: NumericProp) => media({ paddingRight: toSpace(v) });
+  const pb = (v: NumericProp) => media({ paddingBottom: toSpace(v) });
+  const pl = (v: NumericProp) => media({ paddingLeft: toSpace(v) });
+  const px = (v: NumericProp) => [pl(v), pr(v)];
+  const py = (v: NumericProp) => [pt(v), pb(v)];
+  const p = (v: NumericProp) => [pt(v), pr(v), pb(v), pl(v)];
+  const mt = (v: NumericProp) => media({ marginTop: toSpace(v) });
+  const mr = (v: NumericProp) => media({ marginRight: toSpace(v) });
+  const mb = (v: NumericProp) => media({ marginBottom: toSpace(v) });
+  const ml = (v: NumericProp) => media({ marginLeft: toSpace(v) });
+  const mx = (v: NumericProp) => [ml(v), mr(v)];
+  const my = (v: NumericProp) => [mt(v), mb(v)];
+  const m = (v: NumericProp) => [mt(v), mr(v), mb(v), ml(v)];
+
+  return {
+    media,
+    responsive,
+    pt,
+    pr,
+    pb,
+    pl,
+    px,
+    py,
+    p,
+    mt,
+    mr,
+    mb,
+    ml,
+    mx,
+    my,
+    m
+  };
 };
 
 /* deprecated media utility*/

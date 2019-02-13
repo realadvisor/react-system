@@ -823,3 +823,97 @@ test("zero paddings and margins are applied correctly", () => {
 />
 `);
 });
+
+test("system paddings allows to use theme for any component", () => {
+  const Component = () => {
+    const { pt, pr, pb, pl, px, py, p } = useSystem();
+    return (
+      <div>
+        <div className={css([pt(1), pr(2), pb(3), pl(4)])} />
+        <div className={css([px(1), py(2)])} />
+        <div className={css([p(1)])} />
+      </div>
+    );
+  };
+  expect(TestRenderer.create(<Component />)).toMatchInlineSnapshot(`
+.emotion-0 {
+  padding-top: 4px;
+  padding-right: 8px;
+  padding-bottom: 16px;
+  padding-left: 32px;
+}
+
+.emotion-1 {
+  padding-left: 4px;
+  padding-right: 4px;
+  padding-top: 8px;
+  padding-bottom: 8px;
+}
+
+.emotion-2 {
+  padding-top: 4px;
+  padding-right: 4px;
+  padding-bottom: 4px;
+  padding-left: 4px;
+}
+
+<div>
+  <div
+    className="emotion-0"
+  />
+  <div
+    className="emotion-1"
+  />
+  <div
+    className="emotion-2"
+  />
+</div>
+`);
+});
+
+test("system margins allows to use theme for any component", () => {
+  const Component = () => {
+    const { mt, mr, mb, ml, mx, my, m } = useSystem();
+    return (
+      <div>
+        <div className={css([mt(1), mr(2), mb(3), ml(4)])} />
+        <div className={css([mx(1), my(2)])} />
+        <div className={css([m(1)])} />
+      </div>
+    );
+  };
+  expect(TestRenderer.create(<Component />)).toMatchInlineSnapshot(`
+.emotion-0 {
+  margin-top: 4px;
+  margin-right: 8px;
+  margin-bottom: 16px;
+  margin-left: 32px;
+}
+
+.emotion-1 {
+  margin-left: 4px;
+  margin-right: 4px;
+  margin-top: 8px;
+  margin-bottom: 8px;
+}
+
+.emotion-2 {
+  margin-top: 4px;
+  margin-right: 4px;
+  margin-bottom: 4px;
+  margin-left: 4px;
+}
+
+<div>
+  <div
+    className="emotion-0"
+  />
+  <div
+    className="emotion-1"
+  />
+  <div
+    className="emotion-2"
+  />
+</div>
+`);
+});

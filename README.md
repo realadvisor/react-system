@@ -145,6 +145,29 @@ const Component = () => {
 };
 ```
 
+### spaces
+
+Similar spaces utilities like in Flex/Box to customise components without wrapping to them.
+
+```
+const Component = () => {
+  const { px, my } = useSystem();
+
+  return (
+    <div className={css([px(2), my(3)])}></div>
+  )
+}
+```
+
+Here's the list of available utilities
+
+- pt, pr, pb, pl
+- px, py
+- p
+- mt, mr, mb, ml
+- mx, my
+- m
+
 ## What is the different from grid-styled or @rebass/grid
 
 - react-system has less dependencies and esm support which leads to smaller bundle size
