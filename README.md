@@ -149,7 +149,7 @@ const Component = () => {
 
 Similar spaces utilities like in Flex/Box to customise components without wrapping to them.
 
-```
+```js
 const Component = () => {
   const { px, my } = useSystem();
 
