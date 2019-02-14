@@ -802,6 +802,18 @@ test("media util called outside of component render throw an error", () => {
   }).toThrowError(/Context can only be read while React is rendering/);
 });
 
+test("media util do not mutate styles with rules", () => {
+  const style1 = { display: "block" };
+  const style2 = { display: "none" };
+  const App = () => {
+    const { media } = useSystem();
+    return <Box css={media([style1, style2])} />;
+  };
+  TestRenderer.create(<App />);
+  expect(style1).toEqual({ display: "block" });
+  expect(style2).toEqual({ display: "none" });
+});
+
 test("zero paddings and margins are applied correctly", () => {
   expect(TestRenderer.create(<Box m={0} p={0} />)).toMatchInlineSnapshot(`
 .emotion-0 {

@@ -112,7 +112,7 @@ const makeQuery = value => {
 };
 
 const makeMediaRules = queries => (styles: any) => {
-  const result = styles[0];
+  const result = { ...styles[0] };
   styles.slice(1).forEach((style, index) => {
     result[queries[index]] = style;
   });
