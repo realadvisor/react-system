@@ -146,9 +146,8 @@ type MediaPropStyles = {
 
 type Styles = $ReadOnlyArray<BasicStyles> | MediaPropStyles;
 
-export const useSystem = () => {
+export const useResponsive = () => {
   const context = React.useContext(SystemContext);
-  const media = makeMedia(context);
   const [index, setIndex] = React.useState(0);
 
   React.useEffect(() => {
@@ -173,6 +172,13 @@ export const useSystem = () => {
     return values[Math.max(0, Math.min(index, values.length - 1))];
   };
 
+  return responsive;
+};
+
+export const useSystem = () => {
+  const context = React.useContext(SystemContext);
+  const media = makeMedia(context);
+
   const toSpace = value => {
     return Array.isArray(value)
       ? value.map(item => getSpace(item, context))
@@ -196,7 +202,6 @@ export const useSystem = () => {
 
   return {
     media,
-    responsive,
     pt,
     pr,
     pb,

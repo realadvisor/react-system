@@ -6,7 +6,13 @@ import TestRenderer from "react-test-renderer";
 import { renderToString } from "react-dom/server";
 import { css } from "emotion";
 import { renderStylesToString } from "emotion-server";
-import { Box, Flex, media as mediaUtil, useSystem } from "./src/system.js";
+import {
+  Box,
+  Flex,
+  media as mediaUtil,
+  useSystem,
+  useResponsive
+} from "./src/system.js";
 
 declare var jest: Function;
 declare var test: Function;
@@ -740,7 +746,7 @@ test("system media allow to pass array of rules", () => {
 test("system responsive allows to get value in system like style", () => {
   let result;
   const App = () => {
-    const { responsive } = useSystem();
+    const responsive = useResponsive();
     result = responsive([1, 2, 3, 4]);
     return null;
   };
