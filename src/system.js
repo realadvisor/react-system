@@ -146,32 +146,41 @@ type MediaPropStyles = {
 
 type Styles = $ReadOnlyArray<BasicStyles> | MediaPropStyles;
 
-export const useSystem = () => {
+export const useResponsive = () => {
   const context = React.useContext(SystemContext);
-  const media = makeMedia(context);
   const [index, setIndex] = React.useState(0);
 
-  React.useEffect(() => {
-    const handleResize = () => {
-      let currentIndex = 0;
-      context.breakpoints.forEach((bp, i) => {
-        if (window.matchMedia(makeQuery(bp)).matches) {
-          // one more for smallest value
-          currentIndex = i + 1;
-        }
-      });
-      setIndex(currentIndex);
-    };
-    handleResize();
-    window.addEventListener("resize", handleResize);
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  });
+  React.useEffect(
+    () => {
+      const handleResize = () => {
+        let currentIndex = 0;
+        context.breakpoints.forEach((bp, i) => {
+          if (window.matchMedia(makeQuery(bp)).matches) {
+            // one more for smallest value
+            currentIndex = i + 1;
+          }
+        });
+        setIndex(currentIndex);
+      };
+      handleResize();
+      window.addEventListener("resize", handleResize);
+      return () => {
+        window.removeEventListener("resize", handleResize);
+      };
+    },
+    [context]
+  );
 
   const responsive = <T>(values: $ReadOnlyArray<T>): T => {
     return values[Math.max(0, Math.min(index, values.length - 1))];
   };
+
+  return responsive;
+};
+
+export const useSystem = () => {
+  const context = React.useContext(SystemContext);
+  const media = makeMedia(context);
 
   const toSpace = value => {
     return Array.isArray(value)
@@ -196,7 +205,6 @@ export const useSystem = () => {
 
   return {
     media,
-    responsive,
     pt,
     pr,
     pb,

@@ -1,10 +1,11 @@
 // @flow
 
 import * as React from "react";
-import { Box, useSystem } from "../src/system.js";
+import { Box, useSystem, useResponsive } from "../src/system.js";
 
 const Page = () => {
-  const { media, responsive } = useSystem();
+  const { media } = useSystem();
+  const responsive = useResponsive();
 
   return (
     <>
