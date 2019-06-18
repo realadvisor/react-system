@@ -3,7 +3,6 @@
 import * as React from "react";
 import { css, cx } from "emotion";
 import facepaint from "facepaint";
-import invariant from "tiny-invariant";
 import type {
   StandardLonghandProperties,
   JustifySelfProperty,
