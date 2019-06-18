@@ -30,10 +30,10 @@
     "@babel/preset-react": "^7.0.0",
     "babel-core": "^7.0.0-bridge.0",
     "babel-jest": "^24.8.0",
-    "emotion-server": "^10.0.9",
+    "emotion-server": "9",
     "flow-bin": "^0.102.0-rc",
     "jest": "^24.8.0",
-    "jest-emotion": "^10.0.11",
+    "jest-emotion": "9",
     "next": "^8.1.0",
     "prettier": "^1.18.2",
     "react": "^16.8.6",
@@ -49,7 +49,7 @@
   "dependencies": {
     "@babel/runtime": "^7.4.5",
     "csstype": "^2.6.5",
-    "emotion": "^10.0.9",
+    "emotion": "9",
     "facepaint": "^1.2.1"
   }
 }
