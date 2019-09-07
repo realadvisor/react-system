@@ -4,7 +4,8 @@ import * as React from "react";
 import * as ReactDOM from "react-dom";
 import TestRenderer from "react-test-renderer";
 import { renderToString } from "react-dom/server";
-import { css } from "emotion";
+import { css, cache } from "emotion";
+import { CacheProvider } from "@emotion/core";
 import { renderStylesToString } from "emotion-server";
 import {
   Box,
@@ -91,7 +92,7 @@ test("support numbers in width and height", () => {
 });
 
 test("support paddings and margins", () => {
-  expect(TestRenderer.create(<Box p="1" m="2" />)).toMatchInlineSnapshot(`
+  expect(TestRenderer.create(<Box p="1px" m="2px" />)).toMatchInlineSnapshot(`
 .emotion-0 {
   box-sizing: border-box;
   min-width: 0;
@@ -111,7 +112,7 @@ test("support paddings and margins", () => {
 />
 `);
 
-  expect(TestRenderer.create(<Box ph="1" pv="2" mh="3" mv="4" />))
+  expect(TestRenderer.create(<Box ph="1px" pv="2px" mh="3px" mv="4px" />))
     .toMatchInlineSnapshot(`
 .emotion-0 {
   box-sizing: border-box;
@@ -132,7 +133,7 @@ test("support paddings and margins", () => {
 />
 `);
 
-  expect(TestRenderer.create(<Box px="1" py="2" mx="3" my="4" />))
+  expect(TestRenderer.create(<Box px="1px" py="2px" mx="3px" my="4px" />))
     .toMatchInlineSnapshot(`
 .emotion-0 {
   box-sizing: border-box;
@@ -155,7 +156,16 @@ test("support paddings and margins", () => {
 
   expect(
     TestRenderer.create(
-      <Box pt="1" pr="2" pb="3" pl="4" mt="5" mr="6" mb="7" ml="8" />
+      <Box
+        pt="1px"
+        pr="2px"
+        pb="3px"
+        pl="4px"
+        mt="5px"
+        mr="6px"
+        mb="7px"
+        ml="8px"
+      />
     ).toJSON()
   ).toMatchInlineSnapshot(`
 .emotion-0 {
@@ -566,10 +576,10 @@ test("support server-side rendering", () => {
   expect(
     renderStylesToString(
       renderToString(
-        <>
+        <CacheProvider value={cache}>
           <Box p={2}>Box</Box>
           <Flex p={2}>Flex</Flex>
-        </>
+        </CacheProvider>
       )
     )
   ).toMatchInlineSnapshot(
