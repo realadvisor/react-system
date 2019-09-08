@@ -1,6 +1,6 @@
 {
   "name": "react-system",
-  "version": "0.13.2",
+  "version": "0.14.0",
   "description": "Flex box system for react based on emotion",
   "main": "dist/system.cjs.js",
   "module": "dist/system.esm.js",
