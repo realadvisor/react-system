@@ -4,8 +4,7 @@ import * as React from "react";
 import * as ReactDOM from "react-dom";
 import TestRenderer from "react-test-renderer";
 import { renderToString } from "react-dom/server";
-import { css, cache } from "emotion";
-import { CacheProvider } from "@emotion/core";
+import { css } from "emotion";
 import { renderStylesToString } from "emotion-server";
 import {
   Box,

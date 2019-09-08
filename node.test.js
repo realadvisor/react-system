@@ -5,8 +5,6 @@
 
 import * as React from "react";
 import { renderToString } from "react-dom/server";
-import { cache } from "emotion";
-import { CacheProvider } from "@emotion/core";
 import { renderStylesToString } from "emotion-server";
 import { Box, Flex } from "./src/system.js";
 
@@ -18,10 +16,10 @@ test("support server-side rendering", () => {
   expect(
     renderStylesToString(
       renderToString(
-        <CacheProvider value={cache}>
+        <>
           <Box p={2}>Box</Box>
           <Flex p={2}>Flex</Flex>
-        </CacheProvider>
+        </>
       )
     )
   ).toMatchInlineSnapshot(
