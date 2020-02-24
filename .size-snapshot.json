@@ -1,15 +1,15 @@
 {
   "dist/system.esm.js": {
-    "bundled": 11835,
-    "minified": 6550,
-    "gzipped": 1841,
+    "bundled": 11253,
+    "minified": 6119,
+    "gzipped": 1709,
     "treeshaked": {
       "rollup": {
-        "code": 4693,
-        "import_statements": 329
+        "code": 4633,
+        "import_statements": 286
       },
       "webpack": {
-        "code": 5971
+        "code": 5929
       }
     }
   }
