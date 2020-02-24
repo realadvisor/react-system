@@ -6,13 +6,7 @@ import TestRenderer from "react-test-renderer";
 import { renderToString } from "react-dom/server";
 import { css } from "emotion";
 import { renderStylesToString } from "emotion-server";
-import {
-  Box,
-  Flex,
-  media as mediaUtil,
-  useSystem,
-  useResponsive
-} from "./src/system.js";
+import { Box, Flex, useSystem, useResponsive } from "./src/system.js";
 
 declare var jest: Function;
 declare var test: Function;
@@ -752,13 +746,16 @@ test("system responsive allows to get value in system like style", () => {
 });
 
 test("media util allow to pass responsive styles to css prop and emotion css()", () => {
-  const App = () => (
-    <div
-      className={css(mediaUtil({ display: ["block", "none"], color: "#fff" }))}
-    >
-      <Box css={mediaUtil({ overflow: ["hidden", "auto"], color: "#000" })} />
-    </div>
-  );
+  const App = () => {
+    const { media } = useSystem();
+    return (
+      <div
+        className={css(media({ display: ["block", "none"], color: "#fff" }))}
+      >
+        <Box css={media({ overflow: ["hidden", "auto"], color: "#000" })} />
+      </div>
+    );
+  };
 
   expect(TestRenderer.create(<App />).toJSON()).toMatchInlineSnapshot(`
 .emotion-1 {
@@ -794,12 +791,6 @@ test("media util allow to pass responsive styles to css prop and emotion css()",
   />
 </div>
 `);
-});
-
-test("media util called outside of component render throw an error", () => {
-  expect(() => {
-    mediaUtil({ display: "block" });
-  }).toThrowError(/Context can only be read while React is rendering/);
 });
 
 test("media util do not mutate styles with rules", () => {

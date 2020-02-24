@@ -222,27 +222,6 @@ export const useSystem = () => {
   };
 };
 
-/* deprecated media utility*/
-
-const {
-  ReactCurrentDispatcher,
-  ReactCurrentOwner
-} = (React: any).__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
-
-function readContext<T>(Context: React.Context<T>): T {
-  const dispatcher =
-    ReactCurrentDispatcher != null
-      ? ReactCurrentDispatcher.current
-      : ReactCurrentOwner.currentDispatcher;
-  return dispatcher.readContext(Context);
-}
-
-export const media = (styles: Styles) => {
-  const context = readContext(SystemContext);
-  const media = makeMedia(context);
-  return media(styles);
-};
-
 /* Flex/Box */
 
 const id2 = <T>(first: T, second: mixed): T => first;
