@@ -31,7 +31,7 @@ opaque type ForbiddenShorthandProp = mixed;
 
 type NumericProp = number | string | $ReadOnlyArray<number | string>;
 
-type CssProp = { [string]: mixed } | $ReadOnlyArray<CssProp>;
+type CssProp = any;
 
 type MediaProp<T> = $ReadOnlyArray<T> | T;
 
@@ -74,7 +74,8 @@ type BoxProps = {
   fontSize?: ForbiddenShorthandProp,
   color?: ForbiddenShorthandProp,
   bg?: ForbiddenShorthandProp,
-  w?: ForbiddenShorthandProp
+  w?: ForbiddenShorthandProp,
+  ...
 };
 
 type FlexProps = {
@@ -86,7 +87,8 @@ type FlexProps = {
   flexWrap?: MediaProp<FlexWrapProperty>,
   flexDirection?: MediaProp<FlexDirectionProperty>,
 
-  flexFlow?: ForbiddenShorthandProp
+  flexFlow?: ForbiddenShorthandProp,
+  ...
 };
 
 type Descriptor = {|
@@ -124,7 +126,7 @@ const makeMedia = context => {
   const queries = context.breakpoints.map(bp => `@media ${makeQuery(bp)}`);
   const fp = facepaint(queries);
   const mr = makeMediaRules(queries);
-  return (styles: Styles): { [string]: mixed } => {
+  return (styles: Styles): { [string]: mixed, ... } => {
     if (Array.isArray(styles)) {
       return mr(styles);
     } else {
@@ -136,11 +138,13 @@ const makeMedia = context => {
 /* system hook */
 
 type BasicStyles = {
-  [string]: number | string | BasicStyles
+  [string]: number | string | BasicStyles,
+  ...
 };
 
 type MediaPropStyles = {
-  [string]: number | string | $ReadOnlyArray<number | string> | MediaPropStyles
+  [string]: number | string | $ReadOnlyArray<number | string> | MediaPropStyles,
+  ...
 };
 
 type Styles = $ReadOnlyArray<BasicStyles> | MediaPropStyles;
