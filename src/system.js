@@ -180,7 +180,7 @@ export const useResponsive = () => {
 
 export const useSystem = () => {
   const context = React.useContext(SystemContext);
-  const media = makeMedia(context);
+  const media = React.useMemo(() => makeMedia(context), [context]);
 
   const toSpace = value => {
     return Array.isArray(value)

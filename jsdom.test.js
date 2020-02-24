@@ -805,6 +805,20 @@ test("media util do not mutate styles with rules", () => {
   expect(style2).toEqual({ display: "none" });
 });
 
+test("media util should be stable after rerender", () => {
+  let lastMedia;
+  const App = () => {
+    const { media } = useSystem();
+    lastMedia = media;
+    return null;
+  };
+  const root = TestRenderer.create(<App />);
+  const media1 = lastMedia;
+  root.update(<App />);
+  const media2 = lastMedia;
+  expect(media1).toBe(media2);
+});
+
 test("zero paddings and margins are applied correctly", () => {
   expect(TestRenderer.create(<Box m={0} p={0} />)).toMatchInlineSnapshot(`
 .emotion-0 {
