@@ -827,6 +827,42 @@ test("zero paddings and margins are applied correctly", () => {
 `);
 });
 
+test("media util should be stable after rerender", () => {
+  let lastMedia;
+  const App = () => {
+    const { media } = useSystem();
+    lastMedia = media;
+    return null;
+  };
+  const root = TestRenderer.create(<App />);
+  const media1 = lastMedia;
+  root.update(<App />);
+  const media2 = lastMedia;
+  expect(media1).toBe(media2);
+});
+
+test("zero paddings and margins are applied correctly", () => {
+  expect(TestRenderer.create(<Box m={0} p={0} />)).toMatchInlineSnapshot(`
+.emotion-0 {
+  box-sizing: border-box;
+  min-width: 0;
+  min-height: 0;
+  padding-top: 0;
+  padding-right: 0;
+  padding-bottom: 0;
+  padding-left: 0;
+  margin-top: 0;
+  margin-right: 0;
+  margin-bottom: 0;
+  margin-left: 0;
+}
+
+<div
+  className="emotion-0"
+/>
+`);
+});
+
 test("system paddings allows to use theme for any component", () => {
   const Component = () => {
     const { pt, pr, pb, pl, px, py, p } = useSystem();
