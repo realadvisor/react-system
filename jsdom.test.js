@@ -1,11 +1,9 @@
 // @flow
+// @jsx jsx
 
-import * as React from "react";
+import { jsx } from "@emotion/core";
 import * as ReactDOM from "react-dom";
 import TestRenderer from "react-test-renderer";
-import { renderToString } from "react-dom/server";
-import { css } from "emotion";
-import { renderStylesToString } from "emotion-server";
 import { Box, Flex, useSystem, useResponsive } from "./src/system.js";
 
 declare var jest: Function;
@@ -25,18 +23,18 @@ window.matchMedia = jest.fn().mockImplementation(query => {
 test("support width and height", () => {
   expect(TestRenderer.create(<Box width="100px" height="10em" />).toJSON())
     .toMatchInlineSnapshot(`
-.emotion-0 {
-  box-sizing: border-box;
-  min-width: 0;
-  min-height: 0;
-  width: 100px;
-  height: 10em;
-}
+    .emotion-0 {
+      box-sizing: border-box;
+      min-width: 0;
+      min-height: 0;
+      width: 100px;
+      height: 10em;
+    }
 
-<div
-  className="emotion-0"
-/>
-`);
+    <div
+      className="emotion-0"
+    />
+  `);
 });
 
 test("support numbers in width and height", () => {
@@ -471,7 +469,7 @@ test("pass is prop to render element other than div", () => {
 `);
 });
 
-test("css prop does not override props", () => {
+test("css prop overrides props", () => {
   expect(
     TestRenderer.create(
       <div>
@@ -488,70 +486,20 @@ test("css prop does not override props", () => {
   box-sizing: border-box;
   min-width: 0;
   min-height: 0;
+  width: 50%;
   min-width: 100px;
   width: 200px;
   height: 300px;
-  width: 50%;
 }
 
 .emotion-1 {
   box-sizing: border-box;
   min-width: 0;
   min-height: 0;
+  width: 50%;
   min-width: 100px;
   width: 200px;
   height: 300px;
-  width: 50%;
-}
-
-<div>
-  <div
-    className="emotion-0"
-  />
-  <div
-    className="emotion-1"
-  />
-</div>
-`);
-});
-
-test("className does not override props", () => {
-  expect(
-    TestRenderer.create(
-      <div>
-        <Flex
-          width={1 / 2}
-          className={css({ minWidth: 100, width: 200, height: 300 })}
-        />
-        <Box
-          width={1 / 2}
-          className={css({ minWidth: 100, width: 200, height: 300 })}
-        />
-      </div>
-    ).toJSON()
-  ).toMatchInlineSnapshot(`
-.emotion-0 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  box-sizing: border-box;
-  min-width: 0;
-  min-height: 0;
-  min-width: 100px;
-  width: 200px;
-  height: 300px;
-  width: 50%;
-}
-
-.emotion-1 {
-  box-sizing: border-box;
-  min-width: 0;
-  min-height: 0;
-  min-width: 100px;
-  width: 200px;
-  height: 300px;
-  width: 50%;
 }
 
 <div>
@@ -606,9 +554,7 @@ test("system media allow to pass responsive styles to css prop and emotion css()
     const { media } = useSystem();
 
     return (
-      <div
-        className={css(media({ display: ["block", "none"], color: "#fff" }))}
-      >
+      <div css={media({ display: ["block", "none"], color: "#fff" })}>
         <Box css={media({ overflow: ["hidden", "auto"], color: "#000" })} />
       </div>
     );
@@ -656,13 +602,11 @@ test("system media allow to pass array of rules", () => {
 
     return (
       <div
-        className={css(
-          media([
-            { display: "block", color: "#fff" },
-            { display: "none", color: "#000" },
-            { display: "flex", color: "#666" }
-          ])
-        )}
+        css={media([
+          { display: "block", color: "#fff" },
+          { display: "none", color: "#000" },
+          { display: "flex", color: "#666" }
+        ])}
       >
         <Box
           css={media([
@@ -749,9 +693,7 @@ test("media util allow to pass responsive styles to css prop and emotion css()",
   const App = () => {
     const { media } = useSystem();
     return (
-      <div
-        className={css(media({ display: ["block", "none"], color: "#fff" }))}
-      >
+      <div css={media({ display: ["block", "none"], color: "#fff" })}>
         <Box css={media({ overflow: ["hidden", "auto"], color: "#000" })} />
       </div>
     );
@@ -846,9 +788,9 @@ test("system paddings allows to use theme for any component", () => {
     const { pt, pr, pb, pl, px, py, p } = useSystem();
     return (
       <div>
-        <div className={css([pt(1), pr(2), pb(3), pl(4)])} />
-        <div className={css([px(1), py(2)])} />
-        <div className={css([p(1)])} />
+        <div css={[pt(1), pr(2), pb(3), pl(4)]} />
+        <div css={[px(1), py(2)]} />
+        <div css={[p(1)]} />
       </div>
     );
   };
@@ -893,9 +835,9 @@ test("system margins allows to use theme for any component", () => {
     const { mt, mr, mb, ml, mx, my, m } = useSystem();
     return (
       <div>
-        <div className={css([mt(1), mr(2), mb(3), ml(4)])} />
-        <div className={css([mx(1), my(2)])} />
-        <div className={css([m(1)])} />
+        <div css={[mt(1), mr(2), mb(3), ml(4)]} />
+        <div css={[mx(1), my(2)]} />
+        <div css={[m(1)]} />
       </div>
     );
   };

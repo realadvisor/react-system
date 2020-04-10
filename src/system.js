@@ -1,7 +1,7 @@
 // @flow
 
 import * as React from "react";
-import { css, cx } from "emotion";
+import { jsx } from "@emotion/core";
 import facepaint from "facepaint";
 import type {
   StandardLonghandProperties,
@@ -350,26 +350,26 @@ const transformValues = (props, context, styles) => {
   return generated;
 };
 
-const initialBoxStyle = css({
-  boxSizing: "border-box",
-  minWidth: 0,
-  minHeight: 0
-});
-
 export const Box = React.forwardRef<BoxProps, any | null>(
-  ({ as = "div", className = "", css: cssProp, children, ...props }, ref) => {
+  ({ as = "div", css: cssProp, children, ...props }, ref) => {
     const context = React.useContext(SystemContext);
     const { media } = useSystem();
     const styles = [...sizeStyles, ...spaceStyles, ...flexItemStyles];
     const generated = transformValues(props, context, styles);
-    const generatedClassName = css(cssProp, media(generated));
     const rest = omit(props, styles.map(getStylePropName));
-
-    return React.createElement(
+    return jsx(
       (as: any),
       {
         ref,
-        className: cx(initialBoxStyle, className, generatedClassName),
+        css: [
+          {
+            boxSizing: "border-box",
+            minWidth: 0,
+            minHeight: 0
+          },
+          cssProp,
+          media(generated)
+        ],
         ...rest
       },
       children == null ? null : children
@@ -379,15 +379,8 @@ export const Box = React.forwardRef<BoxProps, any | null>(
 
 Box.displayName = "Box";
 
-const initialFlexStyle = css({
-  display: "flex",
-  boxSizing: "border-box",
-  minWidth: 0,
-  minHeight: 0
-});
-
 export const Flex = React.forwardRef<FlexProps, any | null>(
-  ({ as = "div", className = "", css: cssProp, children, ...props }, ref) => {
+  ({ as = "div", css: cssProp, children, ...props }, ref) => {
     const context = React.useContext(SystemContext);
     const { media } = useSystem();
     const styles = [
@@ -397,14 +390,21 @@ export const Flex = React.forwardRef<FlexProps, any | null>(
       ...flexBoxStyles
     ];
     const generated = transformValues(props, context, styles);
-    const generatedClassName = css(cssProp, media(generated));
     const rest = omit(props, styles.map(getStylePropName));
-
-    return React.createElement(
+    return jsx(
       (as: any),
       {
         ref,
-        className: cx(initialFlexStyle, className, generatedClassName),
+        css: [
+          {
+            display: "flex",
+            boxSizing: "border-box",
+            minWidth: 0,
+            minHeight: 0
+          },
+          cssProp,
+          media(generated)
+        ],
         ...rest
       },
       children == null ? null : children
