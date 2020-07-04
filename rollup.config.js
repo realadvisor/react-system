@@ -9,7 +9,16 @@ export default [
     input: "./src/system.js",
     output: { file: pkg.main, format: "cjs" },
     external,
-    plugins: [babel()]
+    plugins: [
+      babel({
+        configFile: false,
+        presets: [
+          ["@babel/env", { loose: true }],
+          "@babel/react",
+          "@babel/flow"
+        ]
+      })
+    ]
   },
   {
     input: "./src/system.js",
@@ -17,7 +26,13 @@ export default [
     external,
     plugins: [
       babel({
+        configFile: false,
         runtimeHelpers: true,
+        presets: [
+          ["@babel/env", { loose: true }],
+          "@babel/react",
+          "@babel/flow"
+        ],
         plugins: [["@babel/transform-runtime", { useESModules: true }]]
       }),
       sizeSnapshot()

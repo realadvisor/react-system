@@ -1,6 +1,6 @@
 {
   "name": "react-system",
-  "version": "0.15.0",
+  "version": "0.16.0-beta.1",
   "description": "Flex box system for react based on emotion",
   "main": "dist/system.cjs.js",
   "module": "dist/system.esm.js",
@@ -9,7 +9,7 @@
     "src"
   ],
   "scripts": {
-    "next": "NODE_ENV=next next",
+    "next": "BABEL_ENV=next next",
     "types": "echo \"// @flow\n\nexport * from '../src/system.js';\" > dist/system.cjs.js.flow",
     "build": "rm -rf dist && rollup -c && yarn types",
     "test": "jest && yarn flow check",
@@ -24,16 +24,15 @@
   "author": "Bogdan Chadkin <trysound@yandex.ru>",
   "license": "MIT",
   "devDependencies": {
-    "@babel/core": "^7.8.4",
-    "@babel/plugin-transform-runtime": "^7.8.3",
-    "@babel/preset-env": "^7.8.4",
-    "@babel/preset-flow": "^7.8.3",
-    "@babel/preset-react": "^7.8.3",
-    "emotion-server": "^10.0.27",
+    "@babel/core": "^7.9.0",
+    "@babel/plugin-transform-runtime": "^7.9.0",
+    "@babel/preset-env": "^7.9.5",
+    "@babel/preset-flow": "^7.9.0",
+    "@babel/preset-react": "^7.9.4",
     "flow-bin": "^0.118.0",
     "jest": "^25.1.0",
-    "jest-emotion": "^10.0.27",
-    "next": "^9.2.2",
+    "jest-emotion": "^10.0.32",
+    "next": "^9.3.4",
     "prettier": "^1.19.1",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
@@ -46,9 +45,9 @@
     "react": "^16.6.0"
   },
   "dependencies": {
-    "@babel/runtime": "^7.8.4",
+    "@babel/runtime": "^7.9.2",
+    "@emotion/core": "^10.0.28",
     "csstype": "^2.6.9",
-    "emotion": "^10.0.27",
     "facepaint": "^1.2.1"
   }
 }
