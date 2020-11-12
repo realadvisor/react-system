@@ -1,4 +1,4 @@
-import babel from "rollup-plugin-babel";
+import babel from "@rollup/plugin-babel";
 import { sizeSnapshot } from "rollup-plugin-size-snapshot";
 import pkg from "./package.json";
 
@@ -11,6 +11,7 @@ export default [
     external,
     plugins: [
       babel({
+        babelHelpers: "bundled",
         configFile: false,
         presets: [
           ["@babel/env", { loose: true }],
@@ -26,8 +27,8 @@ export default [
     external,
     plugins: [
       babel({
+        babelHelpers: "runtime",
         configFile: false,
-        runtimeHelpers: true,
         presets: [
           ["@babel/env", { loose: true }],
           "@babel/react",

@@ -12,5 +12,19 @@
         "code": 5707
       }
     }
+  },
+  "system.esm.js": {
+    "bundled": 10817,
+    "minified": 5886,
+    "gzipped": 1652,
+    "treeshaked": {
+      "rollup": {
+        "code": 4474,
+        "import_statements": 265
+      },
+      "webpack": {
+        "code": 5711
+      }
+    }
   }
 }
