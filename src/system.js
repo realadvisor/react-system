@@ -1,18 +1,18 @@
 // @flow
 
 import * as React from "react";
-import { jsx } from "@emotion/core";
+import { jsx } from "@emotion/react";
 import facepaint from "facepaint";
 import type {
   StandardLonghandProperties,
-  JustifySelfProperty,
-  AlignSelfProperty,
-  AlignItemsProperty,
-  AlignContentProperty,
-  JustifyItemsProperty,
-  JustifyContentProperty,
-  FlexWrapProperty,
-  FlexDirectionProperty,
+  Property$JustifySelf,
+  Property$AlignSelf,
+  Property$AlignItems,
+  Property$AlignContent,
+  Property$JustifyItems,
+  Property$JustifyContent,
+  Property$FlexWrap,
+  Property$FlexDirection,
 } from "csstype";
 
 // emotion adds units to numbers
@@ -66,8 +66,8 @@ type BoxProps = {
   flexGrow?: MediaProp<FlexGrowProperty>,
   flexShrink?: MediaProp<FlexShrinkProperty>,
   flexBasis?: MediaProp<FlexBasisProperty>,
-  justifySelf?: MediaProp<JustifySelfProperty>,
-  alignSelf?: MediaProp<AlignSelfProperty>,
+  justifySelf?: MediaProp<Property$JustifySelf>,
+  alignSelf?: MediaProp<Property$AlignSelf>,
   order?: MediaProp<OrderProperty>,
 
   flex?: ForbiddenShorthandProp,
@@ -80,12 +80,12 @@ type BoxProps = {
 
 type FlexProps = {
   ...BoxProps,
-  alignItems?: MediaProp<AlignItemsProperty>,
-  alignContent?: MediaProp<AlignContentProperty>,
-  justifyItems?: MediaProp<JustifyItemsProperty>,
-  justifyContent?: MediaProp<JustifyContentProperty>,
-  flexWrap?: MediaProp<FlexWrapProperty>,
-  flexDirection?: MediaProp<FlexDirectionProperty>,
+  alignItems?: MediaProp<Property$AlignItems>,
+  alignContent?: MediaProp<Property$AlignContent>,
+  justifyItems?: MediaProp<Property$JustifyItems>,
+  justifyContent?: MediaProp<Property$JustifyContent>,
+  flexWrap?: MediaProp<Property$FlexWrap>,
+  flexDirection?: MediaProp<Property$FlexDirection>,
 
   flexFlow?: ForbiddenShorthandProp,
   ...

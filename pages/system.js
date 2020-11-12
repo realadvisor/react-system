@@ -3,7 +3,7 @@
 import * as React from "react";
 import { Box, useSystem, useResponsive } from "../src/system.js";
 
-const Page = () => {
+const Page = (): React.Node => {
   const { media } = useSystem();
   const responsive = useResponsive();
 
