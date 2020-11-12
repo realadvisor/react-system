@@ -104,7 +104,7 @@ const defaultTheme: Theme = {
   spaces: [0, 4, 8, 16, 32, 64, 128, 256]
 };
 
-const SystemContext = React.createContext<Theme>(defaultTheme);
+const SystemContext: React.Context<Theme> = React.createContext(defaultTheme);
 
 const makeQuery = value => {
   const convertedValue =
@@ -149,7 +149,7 @@ type MediaPropStyles = {
 
 type Styles = $ReadOnlyArray<BasicStyles> | MediaPropStyles;
 
-export const useResponsive = () => {
+export const useResponsive = (): (<T>(values: $ReadOnlyArray<T>) => T) => {
   const context = React.useContext(SystemContext);
   const [index, setIndex] = React.useState(0);
 
@@ -178,7 +178,23 @@ export const useResponsive = () => {
   return responsive;
 };
 
-export const useSystem = () => {
+export const useSystem = (): ({|
+  media: (styles: Styles) => any,
+  m: (v: NumericProp) => any,
+  mb: (v: NumericProp) => any,
+  ml: (v: NumericProp) => any,
+  mr: (v: NumericProp) => any,
+  mt: (v: NumericProp) => any,
+  mx: (v: NumericProp) => any,
+  my: (v: NumericProp) => any,
+  p: (v: NumericProp) => any,
+  pb: (v: NumericProp) => any,
+  pl: (v: NumericProp) => any,
+  pr: (v: NumericProp) => any,
+  pt: (v: NumericProp) => any,
+  px: (v: NumericProp) => any,
+  py: (v: NumericProp) => any
+|}) => {
   const context = React.useContext(SystemContext);
   const media = React.useMemo(() => makeMedia(context), [context]);
 
@@ -350,7 +366,10 @@ const transformValues = (props, context, styles) => {
   return generated;
 };
 
-export const Box = React.forwardRef<BoxProps, any | null>(
+export const Box: React.AbstractComponent<
+  BoxProps,
+  any | null
+> = React.forwardRef(
   ({ as = "div", css: cssProp, children, ...props }, ref) => {
     const context = React.useContext(SystemContext);
     const { media } = useSystem();
@@ -379,7 +398,10 @@ export const Box = React.forwardRef<BoxProps, any | null>(
 
 Box.displayName = "Box";
 
-export const Flex = React.forwardRef<FlexProps, any | null>(
+export const Flex: React.AbstractComponent<
+  FlexProps,
+  any | null
+> = React.forwardRef(
   ({ as = "div", css: cssProp, children, ...props }, ref) => {
     const context = React.useContext(SystemContext);
     const { media } = useSystem();
