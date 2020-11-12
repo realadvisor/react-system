@@ -1,3 +1,3 @@
 module.exports = {
-  presets: ["next/babel", "@babel/flow"]
+  presets: ["next/babel", "@babel/flow"],
 };

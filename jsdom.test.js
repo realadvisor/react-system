@@ -10,13 +10,13 @@ declare var jest: Function;
 declare var test: Function;
 declare var expect: Function;
 
-window.matchMedia = jest.fn().mockImplementation(query => {
+window.matchMedia = jest.fn().mockImplementation((query) => {
   return {
     matches: false,
     media: query,
     onchange: null,
     addListener: jest.fn(),
-    removeListener: jest.fn()
+    removeListener: jest.fn(),
   };
 });
 
@@ -605,14 +605,14 @@ test("system media allow to pass array of rules", () => {
         css={media([
           { display: "block", color: "#fff" },
           { display: "none", color: "#000" },
-          { display: "flex", color: "#666" }
+          { display: "flex", color: "#666" },
         ])}
       >
         <Box
           css={media([
             { overflow: "hidden", color: "#000" },
             { overflow: "auto", color: "#fff" },
-            { overflow: "scroll", color: "#888" }
+            { overflow: "scroll", color: "#888" },
           ])}
         />
       </div>

@@ -28,7 +28,7 @@ const Page = () => {
           "responsive: mobile screen",
           "responsive: tablet screen",
           "responsive: desktop screen",
-          "responsive: large screen"
+          "responsive: large screen",
         ])}
       </div>
     </>

@@ -2,7 +2,7 @@ import babel from "@rollup/plugin-babel";
 import { sizeSnapshot } from "rollup-plugin-size-snapshot";
 import pkg from "./package.json";
 
-const external = id => !id.startsWith(".") && !id.startsWith("/");
+const external = (id) => !id.startsWith(".") && !id.startsWith("/");
 
 export default [
   {
@@ -16,10 +16,10 @@ export default [
         presets: [
           ["@babel/env", { loose: true }],
           "@babel/react",
-          "@babel/flow"
-        ]
-      })
-    ]
+          "@babel/flow",
+        ],
+      }),
+    ],
   },
   {
     input: "./src/system.js",
@@ -32,11 +32,11 @@ export default [
         presets: [
           ["@babel/env", { loose: true }],
           "@babel/react",
-          "@babel/flow"
+          "@babel/flow",
         ],
-        plugins: [["@babel/transform-runtime", { useESModules: true }]]
+        plugins: [["@babel/transform-runtime", { useESModules: true }]],
       }),
-      sizeSnapshot()
-    ]
-  }
+      sizeSnapshot(),
+    ],
+  },
 ];

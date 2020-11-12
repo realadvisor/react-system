@@ -12,7 +12,7 @@ import type {
   JustifyItemsProperty,
   JustifyContentProperty,
   FlexWrapProperty,
-  FlexDirectionProperty
+  FlexDirectionProperty,
 } from "csstype";
 
 // emotion adds units to numbers
@@ -24,7 +24,7 @@ type OrderProperty = $ElementType<Properties, "order">;
 
 type Theme = {|
   breakpoints: $ReadOnlyArray<number>,
-  spaces: $ReadOnlyArray<number>
+  spaces: $ReadOnlyArray<number>,
 |};
 
 opaque type ForbiddenShorthandProp = mixed;
@@ -94,25 +94,25 @@ type FlexProps = {
 type Descriptor = {|
   prop: string,
   cssProp?: string,
-  transform?: (number | string, Theme) => number | string
+  transform?: (number | string, Theme) => number | string,
 |};
 
 const defaultTheme: Theme = {
   // mobile, desktop and large screens
   breakpoints: [768, 1280, 1920],
   // degrees of 2 except insignificant 2
-  spaces: [0, 4, 8, 16, 32, 64, 128, 256]
+  spaces: [0, 4, 8, 16, 32, 64, 128, 256],
 };
 
 const SystemContext: React.Context<Theme> = React.createContext(defaultTheme);
 
-const makeQuery = value => {
+const makeQuery = (value) => {
   const convertedValue =
     typeof value === "number" ? `${Math.ceil(value / 16)}em` : value;
   return `screen and (min-width: ${convertedValue})`;
 };
 
-const makeMediaRules = queries => (styles: any) => {
+const makeMediaRules = (queries) => (styles: any) => {
   const result = { ...styles[0] };
   styles.slice(1).forEach((style, index) => {
     result[queries[index]] = style;
@@ -122,8 +122,8 @@ const makeMediaRules = queries => (styles: any) => {
 
 export const SystemProvider = SystemContext.Provider;
 
-const makeMedia = context => {
-  const queries = context.breakpoints.map(bp => `@media ${makeQuery(bp)}`);
+const makeMedia = (context) => {
+  const queries = context.breakpoints.map((bp) => `@media ${makeQuery(bp)}`);
   const fp = facepaint(queries);
   const mr = makeMediaRules(queries);
   return (styles: Styles): { [string]: mixed, ... } => {
@@ -193,14 +193,14 @@ export const useSystem = (): ({|
   pr: (v: NumericProp) => any,
   pt: (v: NumericProp) => any,
   px: (v: NumericProp) => any,
-  py: (v: NumericProp) => any
+  py: (v: NumericProp) => any,
 |}) => {
   const context = React.useContext(SystemContext);
   const media = React.useMemo(() => makeMedia(context), [context]);
 
-  const toSpace = value => {
+  const toSpace = (value) => {
     return Array.isArray(value)
-      ? value.map(item => getSpace(item, context))
+      ? value.map((item) => getSpace(item, context))
       : getSpace(value, context);
   };
 
@@ -234,7 +234,7 @@ export const useSystem = (): ({|
     ml,
     mx,
     my,
-    m
+    m,
   };
 };
 
@@ -242,7 +242,7 @@ export const useSystem = (): ({|
 
 const id2 = <T>(first: T, second: mixed): T => first;
 
-const makePercent = value => (value === 0 ? 0 : `${value * 100}%`);
+const makePercent = (value) => (value === 0 ? 0 : `${value * 100}%`);
 
 const getSizeValue = (value): string | number =>
   typeof value === "number"
@@ -250,7 +250,7 @@ const getSizeValue = (value): string | number =>
     : value;
 
 // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/sign#Polyfill
-const sign = x => {
+const sign = (x) => {
   // If x is NaN, the result is NaN.
   // If x is -0, the result is -0.
   // If x is +0, the result is +0.
@@ -279,7 +279,7 @@ const getSpace = (value, { spaces }) => {
 
 const sizeStyles: $ReadOnlyArray<Descriptor> = [
   { prop: "width", transform: getSizeValue },
-  { prop: "height", transform: getSizeValue }
+  { prop: "height", transform: getSizeValue },
 ];
 
 const spaceStyles: $ReadOnlyArray<Descriptor> = [
@@ -319,7 +319,7 @@ const spaceStyles: $ReadOnlyArray<Descriptor> = [
   { prop: "mt", cssProp: "marginTop", transform: getSpace },
   { prop: "mr", cssProp: "marginRight", transform: getSpace },
   { prop: "mb", cssProp: "marginBottom", transform: getSpace },
-  { prop: "ml", cssProp: "marginLeft", transform: getSpace }
+  { prop: "ml", cssProp: "marginLeft", transform: getSpace },
 ];
 
 const flexItemStyles: $ReadOnlyArray<Descriptor> = [
@@ -328,7 +328,7 @@ const flexItemStyles: $ReadOnlyArray<Descriptor> = [
   { prop: "flexBasis" },
   { prop: "justifySelf" },
   { prop: "alignSelf" },
-  { prop: "order" }
+  { prop: "order" },
 ];
 
 const flexBoxStyles: $ReadOnlyArray<Descriptor> = [
@@ -337,7 +337,7 @@ const flexBoxStyles: $ReadOnlyArray<Descriptor> = [
   { prop: "justifyItems" },
   { prop: "justifyContent" },
   { prop: "flexWrap" },
-  { prop: "flexDirection" }
+  { prop: "flexDirection" },
 ];
 
 const omit = (obj, blacklist) => {
@@ -350,7 +350,7 @@ const omit = (obj, blacklist) => {
   return next;
 };
 
-const getStylePropName = style => style.prop;
+const getStylePropName = (style) => style.prop;
 
 const transformValues = (props, context, styles) => {
   const generated = {};
@@ -359,7 +359,7 @@ const transformValues = (props, context, styles) => {
     const value = props[prop];
     if (value != null) {
       generated[cssProp] = Array.isArray(value)
-        ? value.map(item => transform(item, context))
+        ? value.map((item) => transform(item, context))
         : transform(value, context);
     }
   }
@@ -384,12 +384,12 @@ export const Box: React.AbstractComponent<
           {
             boxSizing: "border-box",
             minWidth: 0,
-            minHeight: 0
+            minHeight: 0,
           },
           cssProp,
-          media(generated)
+          media(generated),
         ],
-        ...rest
+        ...rest,
       },
       children == null ? null : children
     );
@@ -409,7 +409,7 @@ export const Flex: React.AbstractComponent<
       ...sizeStyles,
       ...spaceStyles,
       ...flexItemStyles,
-      ...flexBoxStyles
+      ...flexBoxStyles,
     ];
     const generated = transformValues(props, context, styles);
     const rest = omit(props, styles.map(getStylePropName));
@@ -422,12 +422,12 @@ export const Flex: React.AbstractComponent<
             display: "flex",
             boxSizing: "border-box",
             minWidth: 0,
-            minHeight: 0
+            minHeight: 0,
           },
           cssProp,
-          media(generated)
+          media(generated),
         ],
-        ...rest
+        ...rest,
       },
       children == null ? null : children
     );
