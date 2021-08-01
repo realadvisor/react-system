@@ -149,10 +149,9 @@ type MediaPropStyles = {
 
 type Styles = $ReadOnlyArray<BasicStyles> | MediaPropStyles;
 
-export const useResponsive = (): (<T>(values: $ReadOnlyArray<T>) => T) => {
+const useResponsiveIndex = () => {
   const context = React.useContext(SystemContext);
   const [index, setIndex] = React.useState(0);
-
   React.useEffect(() => {
     const handleResize = () => {
       let currentIndex = 0;
@@ -170,11 +169,39 @@ export const useResponsive = (): (<T>(values: $ReadOnlyArray<T>) => T) => {
       window.removeEventListener("resize", handleResize);
     };
   }, [context]);
+  return index;
+};
 
+export const useResponsive = (): (<T>(values: $ReadOnlyArray<T>) => T) => {
+  const index = useResponsiveIndex();
   const responsive = <T>(values: $ReadOnlyArray<T>): T => {
     return values[Math.max(0, Math.min(index, values.length - 1))];
   };
+  return responsive;
+};
 
+const ResponsiveContext = React.createContext(0);
+
+export const ResponsiveProvider = ({
+  children,
+}: {|
+  children: React.Node,
+|}): React.Node => {
+  const index = useResponsiveIndex();
+  return (
+    <ResponsiveContext.Provider value={index}>
+      {children}
+    </ResponsiveContext.Provider>
+  );
+};
+
+export const useGlobalResponsive = (): (<T>(
+  values: $ReadOnlyArray<T>
+) => T) => {
+  const index = React.useContext(ResponsiveContext);
+  const responsive = <T>(values: $ReadOnlyArray<T>): T => {
+    return values[Math.max(0, Math.min(index, values.length - 1))];
+  };
   return responsive;
 };
 
