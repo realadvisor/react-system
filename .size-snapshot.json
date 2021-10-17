@@ -14,9 +14,9 @@
     }
   },
   "system.esm.js": {
-    "bundled": 10818,
-    "minified": 5887,
-    "gzipped": 1651,
+    "bundled": 11527,
+    "minified": 6308,
+    "gzipped": 1730,
     "treeshaked": {
       "rollup": {
         "code": 4475,
