@@ -1,8 +1,8 @@
 import * as React from "react";
-import type { FunctionInterpolation } from "@emotion/react";
+import type { Interpolation } from "@emotion/react";
 import type { StandardLonghandProperties, Property } from "csstype";
 
-type Style = FunctionInterpolation<any>;
+type Style = Interpolation<any>;
 
 // emotion adds units to numbers
 type Properties = StandardLonghandProperties<number>;
