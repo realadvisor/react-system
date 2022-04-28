@@ -91,7 +91,7 @@ export declare function useResponsive(): <T>(values: ReadonlyArray<T>) => T;
 
 export declare function ResponsiveProvider(options: {
   children: React.ReactNode;
-}): React.ReactNode;
+}): JSX.Element;
 
 export declare function useGlobalResponsive(): <T>(
   values: ReadonlyArray<T>
