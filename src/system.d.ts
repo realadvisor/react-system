@@ -20,7 +20,7 @@ type NumericProp = number | string | ReadonlyArray<number | string>;
 
 type MediaProp<T> = ReadonlyArray<T> | T;
 
-type BoxProps = {
+type BoxProps = React.DOMAttributes<HTMLElement> & {
   as?: React.ElementType;
   className?: string;
   css?: Style;
