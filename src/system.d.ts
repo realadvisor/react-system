@@ -20,7 +20,10 @@ type NumericProp = number | string | ReadonlyArray<number | string>;
 
 type MediaProp<T> = ReadonlyArray<T> | T;
 
-type BoxProps = React.DOMAttributes<HTMLElement> & {
+type DomProps = React.RefAttributes<HTMLElement> &
+  React.DOMAttributes<HTMLElement>;
+
+type BoxProps = DomProps & {
   as?: React.ElementType;
   className?: string;
   css?: Style;
@@ -115,7 +118,7 @@ export declare function useSystem(): {
   py: (v: NumericProp) => Style;
 };
 
-export declare const Box: React.ForwardRefRenderFunction<any | null, BoxProps>;
+export declare const Box: React.ForwardRefExoticComponent<BoxProps>;
 
 export declare const Flex: React.ForwardRefRenderFunction<
   any | null,
